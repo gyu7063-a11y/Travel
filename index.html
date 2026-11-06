@@ -69,7 +69,7 @@ h2.sec small{font-size:12px;color:var(--sub);font-weight:500}
 /* timeline */
 .day{margin-bottom:14px}
 .dayhead{display:flex;align-items:baseline;gap:8px;margin:0 4px 8px}
-.dayhead b{font-size:17px}
+.dayhead b{font-size:17px;white-space:nowrap}
 .tl{position:relative;padding-left:22px}
 .tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
 .ti{position:relative;margin-bottom:10px}
@@ -218,11 +218,32 @@ table.cmp thead th{color:var(--navy);font-size:14px}
   </div>
 
   <div class="day">
-    <div class="dayhead"><b>DAY 2</b><span class="muted">11/8 (일)</span></div>
+    <div class="dayhead"><b>DAY 2</b><span class="muted">11/8 (일) · 다자이후 → 오호리 공원 → 후쿠오카 타워</span></div>
     <div class="tl">
-      <div class="ti"><div class="card slot" data-slot="d2-a"><div class="time">오전</div><textarea class="memo" rows="2" placeholder="예) 아침 멘타이쥬 (오픈런)"></textarea></div></div>
-      <div class="ti"><div class="card slot" data-slot="d2-b"><div class="time">오후</div><textarea class="memo" rows="2" placeholder="일정 추가…"></textarea></div></div>
-      <div class="ti"><div class="card slot" data-slot="d2-c"><div class="time">저녁</div><textarea class="memo" rows="2" placeholder="일정 추가…"></textarea></div></div>
+      <div class="ti"><div class="card"><div class="time">08:30</div><h3>🚉 호텔 → 니시테츠 후쿠오카(텐진)역</h3>
+        <div class="muted">호텔에서 걸어서 약 5분 · 지하철역이 아니라 <b class="jp">西鉄福岡(天神)駅</b>이에요 (솔라리아/미쓰코시 건물 2층 개찰구)</div>
+        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E8%A5%BF%E9%89%84%E7%A6%8F%E5%B2%A1%28%E5%A4%A9%E7%A5%9E%29%E9%A7%85" target="_blank" rel="noopener">🗺️ 역 위치</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">08:45 → 09:30</div><h3>🚃 니시테츠 전철 → 다자이후</h3>
+        <div class="muted"><b>후츠카이치(二日市)</b>에서 다자이후선으로 1번 환승 · 약 45분 · <span class="price">편도 480엔</span>/1인<br>⚠️ 지하철과 다른 회사라 승차권 발매기에서 <b>목적지 太宰府</b> 표를 사세요. 일요일은 다자이후행 직통 열차가 있을 수 있어요. 전광판에 <span class="jp">太宰府</span>가 보이면 환승 없이 가요.</div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">09:30 ~ 12:00</div><h3>⛩️ 다자이후 텐만구 + 참배길</h3>
+        <div class="muted">참배길 → 본전 참배 → <b>우메가에모치(梅ヶ枝餅)</b> 갓 구운 떡 · 쿠마 켄고가 설계한 나무 스타벅스 · 일요일이라 <b>10시 이후 붐벼요</b>. 일찍 갈수록 좋아요</div>
+        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%AA%E5%AE%B0%E5%BA%9C%E5%A4%A9%E6%BA%80%E5%AE%AE" target="_blank" rel="noopener">🗺️ 텐만구</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">12:00 → 13:00</div><h3>🚃 텐진 복귀 + 🍽️ 점심</h3>
+        <div class="muted">다자이후역 → 니시테츠 후쿠오카(텐진) 약 45분 · 점심은 텐진에서 (키와미야 함바그 등) 또는 참배길에서 먹고 출발</div></div></div>
+      <div class="ti"><div class="card"><div class="time">14:00 ~ 15:45</div><h3>🌳 오호리 공원 + 일본정원</h3>
+        <div class="muted">지하철 공항선 텐진 → <b>오호리코엔(大濠公園)역</b> 2정거장 (컨택리스 OK) · 호수 둘레 약 2km 산책 · 일본정원은 <span class="price">250엔</span>, 17시 마감, 월요일 휴무 (일요일은 영업) · 호숫가 스타벅스에서 쉬어가기</div>
+        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%BF%A0%E5%85%AC%E5%9C%92" target="_blank" rel="noopener">🗺️ 오호리 공원</a><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%BF%A0%E5%85%AC%E5%9C%92%20%E6%97%A5%E6%9C%AC%E5%BA%AD%E5%9C%92" target="_blank" rel="noopener">🗺️ 일본정원</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">15:45 → 16:00</div><h3>🚕 택시 2대 → 후쿠오카 타워</h3>
+        <div class="muted">약 10~15분 · 버스는 갈아타야 해서 5명이면 택시가 편해요</div>
+        <div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('tower')">🚕 타워 택시 카드</button></div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">16:00 ~ 18:00</div><h3>🗼 모모치 해변 → 후쿠오카 타워 (일몰 + 야경)</h3>
+        <div class="muted">해변 산책 → 해 질 무렵(<b>17시 20분 전후</b>) 전망대로 올라가 일몰과 야경을 한 번에 · <span class="price">1,000엔</span>/1인 (온라인 예매는 조금 더 저렴) · 9:30~22:00 영업</div>
+        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%B2%A1%E3%82%BF%E3%83%AF%E3%83%BC" target="_blank" rel="noopener">🗺️ 후쿠오카 타워</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">18:00 → 19:00</div><h3>🍲 텐진 복귀 → 저녁 모츠나베</h3>
+        <div class="muted">타워 앞 버스정류장(福岡タワー)에서 텐진행 버스 약 20분 또는 택시 · 일요일 저녁은 붐비니 <b>모츠나베는 예약</b> 추천</div></div></div>
+      <div class="ti"><div class="card"><div class="time">밤</div><h3>🧳 짐 싸기 + 프런트에 내일 아침 택시 예약</h3>
+        <div class="muted">제주팀 07:50, 인천팀 08:40 출발 · ‘이동’ 탭의 예약 카드를 보여주세요</div></div></div>
+      <div class="ti"><div class="card slot" data-slot="d2-a"><div class="time">메모</div><textarea class="memo" rows="2" placeholder="추가 메모…"></textarea></div></div>
     </div>
   </div>
 
@@ -466,6 +487,11 @@ const TAXI = {
     addr:"福岡市博多区<br>中洲2丁目8-27",
     ask:"ここまで<br>お願いします。",
     ko:"요시즈카 우나기야까지 부탁합니다"},
+  tower:{label:"🗼 후쿠오카 타워",
+    big:"福岡タワー",
+    addr:"福岡市早良区<br>百道浜2丁目3-26",
+    ask:"ここまで<br>お願いします。",
+    ko:"후쿠오카 타워까지 부탁합니다"},
   reserve:{label:"🛎️ 택시 예약",
     big:"明日の朝<br>タクシーを<br>予約できますか？",
     addr:"7:50 → 3人（国際線）<br>8:40 → 2人（国際線）",
