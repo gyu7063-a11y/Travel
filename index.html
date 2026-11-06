@@ -80,6 +80,10 @@ h2.sec small{font-size:12px;color:var(--sub);font-weight:500}
 .slot{border:2px dashed var(--line);background:transparent;box-shadow:none;color:var(--sub)}
 textarea.memo,input.memo{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;background:#fffdf8;resize:vertical}
 
+.plantabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+.plantabs button{border:2px solid var(--line);background:#fff;border-radius:14px;padding:10px 6px;font:inherit;font-size:14px;font-weight:800;color:var(--sub);cursor:pointer}
+.plantabs button.on{border-color:var(--navy);background:var(--navy);color:#fff}
+.tl.plan{display:none}.tl.plan.on{display:block}
 /* steps */
 .steps{counter-reset:s}
 .step{display:flex;gap:12px;align-items:flex-start}
@@ -193,7 +197,7 @@ table.cmp thead th{color:var(--navy);font-size:14px}
       <tr><th>가는 날<br><span class="muted">11/7 토</span></th><td>인천 12:00 → <b>후쿠오카 13:30</b></td><td>제주 12:40 → <b>후쿠오카 13:45</b></td></tr>
       <tr><th>오는 날<br><span class="muted">11/9 월</span></th><td>후쿠오카 <b>11:20</b> → 인천 12:55</td><td>후쿠오카 <b>10:30</b> → 제주 11:35</td></tr>
       <tr><th>공항 도착 목표</th><td><b>09:20</b><br><span class="muted">출발 2시간 전</span></td><td><b>08:30</b><br><span class="muted">출발 2시간 전</span></td></tr>
-      <tr><th>호텔 출발</th><td><b>08:40</b></td><td><b>07:50</b></td></tr>
+      <tr><th>호텔 출발</th><td><b>08:30</b><br><span class="muted">지하철</span></td><td><b>07:40</b><br><span class="muted">지하철</span></td></tr>
     </table>
     <div class="notice">🤝 <b>첫날 만나는 곳:</b> 국제선 1층 도착 로비. 입국장을 나오면 보이는 <b>Tully's Coffee 앞</b>. 먼저 나온 팀이 기다렸다가 5명이 모이면 같이 이동해요. 짐 찾고 입국심사까지 끝나면 보통 <b>14:15~14:45</b>쯤이에요.</div>
     <div class="notice red">⏰ <b>귀국일엔 아침 시간이 거의 없어요.</b> 두 팀 다 체크아웃(11:00)보다 훨씬 일찍 나가야 해요. <b>전날 밤에 짐을 다 싸두세요.</b> 아침은 편의점이나 공항에서 해결하는 게 안전해요.</div>
@@ -213,65 +217,81 @@ table.cmp thead th{color:var(--navy);font-size:14px}
       <div class="ti hl"><div class="card"><div class="time">15:30~16:00 · 늦은 점심</div><h3>🍱 요시즈카 우나기야</h3>
         <div class="muted">상 우나쥬 + 우마키 · 토요일 영업 (10:30~21:00, 쉬는 시간 없음) · 호텔에서 도보 약 15~20분 또는 지하철 텐진→나카스카와바타 1정거장 (5번 출구 도보 3분)</div>
         <div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('unagi')">🚕 택시 카드</button></div></div></div>
-      <div class="ti"><div class="card"><div class="time">17:00 ~ 20:00</div><h3>🛍️ 하카타역 쇼핑</h3>
+      <div class="ti"><div class="card"><div class="time">17:00 ~ 19:40</div><h3>🛍️ 하카타역 쇼핑</h3>
         <div class="muted">나카스카와바타역 → 지하철 2정거장 → <b>하카타역</b> · 유니클로(아뮤에스트 / KITTE 하카타) · GU(요도바시 하카타) · <b>티파니(하카타 한큐 3층)</b> · 스탠다드프로덕츠는 매장 위치 확인 필요<br>⚠️ <b>셀린느는 하카타가 아니라 호텔 바로 옆 이와타야 본점</b>에 있어요 (둘째 날 저녁)</div>
         <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E9%98%AA%E6%80%A5" target="_blank" rel="noopener">🗺️ 하카타 한큐</a><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E3%82%A2%E3%83%9F%E3%83%A5%E3%82%A8%E3%82%B9%E3%83%88%20%E3%83%A6%E3%83%8B%E3%82%AF%E3%83%AD%20%E5%8D%9A%E5%A4%9A" target="_blank" rel="noopener">🗺️ 유니클로</a><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E3%82%B8%E3%83%BC%E3%83%A6%E3%83%BC%20%E3%83%A8%E3%83%89%E3%83%90%E3%82%B7%E5%8D%9A%E5%A4%9A%E5%BA%97" target="_blank" rel="noopener">🗺️ GU</a></div></div></div>
-      <div class="ti"><div class="card"><div class="time">20:30 ~</div><h3>🛒 돈키호테 → 🍜 이치란 야식</h3>
-        <div class="muted">호텔 근처 돈키호테 2곳: <b>텐진 본점(24시간)</b> · <b>텐진 니시도리점(8:00~새벽 5:00, 2026년 6월 오픈)</b> · 여권 지참하면 면세 · 쇼핑 후 이치란에서 야식 (토·일 아무 날이나)</div>
-        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E3%83%89%E3%83%B3%E3%83%BB%E3%82%AD%E3%83%9B%E3%83%BC%E3%83%86%20%E5%A4%A9%E7%A5%9E%E6%9C%AC%E5%BA%97" target="_blank" rel="noopener">🗺️ 돈키 본점</a><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E3%83%89%E3%83%B3%E3%83%BB%E3%82%AD%E3%83%9B%E3%83%BC%E3%83%86%20%E5%A4%A9%E7%A5%9E%E8%A5%BF%E9%80%9A%E3%82%8A%E5%BA%97" target="_blank" rel="noopener">🗺️ 돈키 니시도리</a><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E4%B8%80%E8%98%AD%20%E5%A4%A9%E7%A5%9E" target="_blank" rel="noopener">🗺️ 이치란</a></div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">20:00 ~ 22:00</div><h3>🦑 저녁 · 博多かんべえ 祇園邸 (오징어 활어회 · 개별실)</h3>
+        <div class="muted">하카타역에서 택시 약 5~10분 · <b>16:00~새벽 1:00</b> · 2~22명 완전 개별실, 한국어 메뉴 · 1인 약 5,000엔 · 토요일 저녁이라 <b>개별실 예약 필수</b> · 요시즈카를 늦게 먹었으니 20시 저녁이 딱 좋아요</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%81%8B%E3%82%93%E3%81%B9%E3%81%88%20%E7%A5%87%E5%9C%92%E9%82%B8" target="_blank" rel="noopener">🗺️ 지도</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">22:15 ~</div><h3>🛒 돈키호테 (+ 🍜 이치란은 원하는 날 야식으로)</h3>
+        <div class="muted">호텔 근처 2곳: <b>텐진 본점(24시간)</b> · <b>텐진 니시도리점(8:00~새벽 5:00)</b> · 여권 지참하면 면세</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E3%83%89%E3%83%B3%E3%83%BB%E3%82%AD%E3%83%9B%E3%83%BC%E3%83%86%20%E5%A4%A9%E7%A5%9E%E6%9C%AC%E5%BA%97" target="_blank" rel="noopener">🗺️ 돈키 본점</a><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E3%83%89%E3%83%B3%E3%83%BB%E3%82%AD%E3%83%9B%E3%83%BC%E3%83%86%20%E5%A4%A9%E7%A5%9E%E8%A5%BF%E9%80%9A%E3%82%8A%E5%BA%97" target="_blank" rel="noopener">🗺️ 돈키 니시도리</a><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E4%B8%80%E8%98%AD%20%E5%A4%A9%E7%A5%9E" target="_blank" rel="noopener">🗺️ 이치란</a></div></div></div>
     </div>
   </div>
 
   <div class="day">
-    <div class="dayhead"><b>DAY 2</b><span class="muted">11/8 (일) · 다자이후 → 마코토 → 쇼후엔 → 오호리 → 타워</span></div>
-    <div class="tl">
+    <div class="dayhead"><b>DAY 2</b><span class="muted">11/8 (일) · 플랜을 골라보세요</span></div>
+    <div class="plantabs"><button data-plan="A" onclick="setPlan('A')">⛩️ A · 다자이후 포함</button><button data-plan="B" onclick="setPlan('B')">🏙️ B · 후쿠오카만</button></div>
+    <div class="tl plan" data-plan="A">
       <div class="ti"><div class="card"><div class="time">08:30</div><h3>🚉 호텔 → 니시테츠 후쿠오카(텐진)역</h3>
-        <div class="muted">호텔에서 걸어서 약 5분 · 지하철역이 아니라 <b class="jp">西鉄福岡(天神)駅</b>이에요 (솔라리아/미쓰코시 건물 2층 개찰구)</div>
-        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E8%A5%BF%E9%89%84%E7%A6%8F%E5%B2%A1%28%E5%A4%A9%E7%A5%9E%29%E9%A7%85" target="_blank" rel="noopener">🗺️ 역 위치</a></div></div></div>
+        <div class="muted">호텔에서 걸어서 약 5분 · 지하철역이 아니라 <b class="jp">西鉄福岡(天神)駅</b>이에요</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E8%A5%BF%E9%89%84%E7%A6%8F%E5%B2%A1%28%E5%A4%A9%E7%A5%9E%29%E9%A7%85" target="_blank" rel="noopener">🗺️ 역 위치</a></div></div></div>
       <div class="ti"><div class="card"><div class="time">08:45 → 09:30</div><h3>🚃 니시테츠 전철 → 다자이후</h3>
-        <div class="muted"><b>후츠카이치(二日市)</b>에서 다자이후선으로 1번 환승 · 약 45분 · <span class="price">편도 480엔</span>/1인<br>⚠️ 지하철과 다른 회사라 승차권 발매기에서 <b>목적지 太宰府</b> 표를 사세요. 일요일은 다자이후행 직통 열차가 있을 수 있어요. 전광판에 <span class="jp">太宰府</span>가 보이면 환승 없이 가요.</div></div></div>
-      <div class="ti hl"><div class="card"><div class="time">09:30 ~ 11:45</div><h3>⛩️ 다자이후 텐만구 + 참배길</h3>
-        <div class="muted">참배길 → 본전 참배 → <b>우메가에모치(梅ヶ枝餅)</b> 갓 구운 떡 · 쿠마 켄고가 설계한 나무 스타벅스 · 일요일이라 <b>10시 이후 붐벼요</b>. 일찍 갈수록 좋아요</div>
-        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%AA%E5%AE%B0%E5%BA%9C%E5%A4%A9%E6%BA%80%E5%AE%AE" target="_blank" rel="noopener">🗺️ 텐만구</a></div></div></div>
-      <div class="ti"><div class="card"><div class="time">11:45 → 12:30</div><h3>🚃 다자이후 → 텐진 복귀</h3>
-        <div class="muted">니시테츠 전철 약 45분 · 다자이후는 11:45쯤 나서야 점심과 오후 일정이 맞아요</div></div></div>
-      <div class="ti hl"><div class="card"><div class="time">12:30 ~ 13:30</div><h3>🍽️ 점심 · 마코토 (まこと)</h3>
-        <div class="muted">텐진 북쪽 · 일요일 영업 여부와 영업시간은 구글맵에서 확인하세요</div>
-        <div class="linkrow"><a class="lbtn map" href="https://maps.app.goo.gl/KGYiKh64AoC5qKh16" target="_blank" rel="noopener">🗺️ 마코토</a></div></div></div>
-      <div class="ti hl"><div class="card"><div class="time">13:45 ~ 14:30</div><h3>🍵 쇼후엔 (松風園) · 정원 + 말차</h3>
-        <div class="muted">텐진에서 택시 2대로 약 10분 · <b>9:00~17:00, 매주 화요일 휴원</b> → 일요일 OK · 입장료 소액 · 정원을 보며 말차 한 잔(유료) · 단풍 절정은 11월 하순이라 이 시기엔 물들기 시작할 무렵</div>
-        <div class="linkrow"><a class="lbtn map" href="https://maps.app.goo.gl/YTVpPJahJAb2iXW49" target="_blank" rel="noopener">🗺️ 쇼후엔</a><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('shofuen')">🚕 택시 카드</button></div></div></div>
-      <div class="ti"><div class="card"><div class="time">14:45 ~ 15:40</div><h3>🌳 오호리 공원 산책</h3>
-        <div class="muted">쇼후엔에서 택시 약 10분 · 호수 둘레 산책 + 호숫가 스타벅스 · 쇼후엔에서 일본정원을 봤으니 <b>오호리 일본정원은 건너뛰어도 OK</b></div>
-        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%BF%A0%E5%85%AC%E5%9C%92" target="_blank" rel="noopener">🗺️ 오호리 공원</a></div></div></div>
+        <div class="muted"><b>후츠카이치(二日市)</b>에서 1번 환승 · 약 45분 · <span class="price">편도 480엔</span>/1인 · 발매기에서 <b class="jp">太宰府</b>행 표 구매</div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">09:30 ~ 11:30</div><h3>⛩️ 다자이후 텐만구 + 참배길</h3>
+        <div class="muted">참배길 → 본전 → <b>우메가에모치</b> · 쿠마 켄고 스타벅스 · 일요일 10시 이후 붐벼요</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%AA%E5%AE%B0%E5%BA%9C%E5%A4%A9%E6%BA%80%E5%AE%AE" target="_blank" rel="noopener">🗺️ 텐만구</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">11:30 → 12:15</div><h3>🚃 다자이후 → 텐진 복귀</h3>
+        <div class="muted">니시테츠 약 45분</div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">12:20 ~ 13:20</div><h3>🐟 점심 · 마코토 (食事と酒処 真)</h3>
+        <div class="muted"><b>秋サバ一枚焼(고등어 한 마리 구이) 정식</b> 한 가지 메뉴 · 밥 리필 무료 · 1인 1,000~2,000엔 · 텐진 1-15-3 (우마카몬 거리) · <b>11:00 오픈, 점심엔 줄이 길어요</b> · ⚠️ <b>일요일 영업 여부는 구글맵 영업시간에서 꼭 확인</b><br>줄이 너무 길면 대안: 키와미야 함바그 (텐진 파르코 / 텐진 우마카 요코초)</div><div class="linkrow"><a class="lbtn map" href="https://maps.app.goo.gl/KGYiKh64AoC5qKh16" target="_blank" rel="noopener">🗺️ 마코토</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">13:30 ~ 14:20</div><h3>🍵 쇼후엔 (松風園) · 정원 + 말차</h3>
+        <div class="muted">택시 약 10분 · 9:00~17:00, 화요일 휴원 · 말차 한 잔(유료)</div><div class="linkrow"><a class="lbtn map" href="https://maps.app.goo.gl/YTVpPJahJAb2iXW49" target="_blank" rel="noopener">🗺️ 쇼후엔</a><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('shofuen')">🚕 택시 카드</button></div></div></div>
+      <div class="ti"><div class="card"><div class="time">14:35 ~ 15:40</div><h3>🌳 오호리 공원 산책</h3>
+        <div class="muted">택시 약 10분 · 호수 산책 + 호숫가 스타벅스 (일본정원은 생략 OK)</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%BF%A0%E5%85%AC%E5%9C%92" target="_blank" rel="noopener">🗺️ 오호리 공원</a></div></div></div>
       <div class="ti"><div class="card"><div class="time">15:45 → 16:00</div><h3>🚕 택시 2대 → 후쿠오카 타워</h3>
-        <div class="muted">약 10~15분</div>
-        <div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('tower')">🚕 타워 택시 카드</button></div></div></div>
+        <div class="muted">약 10~15분</div><div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('tower')">🚕 타워 택시 카드</button></div></div></div>
       <div class="ti hl"><div class="card"><div class="time">16:00 ~ 18:00</div><h3>🗼 모모치 해변 → 후쿠오카 타워 (일몰 + 야경)</h3>
-        <div class="muted">해 질 무렵(<b>17시 20분 전후</b>) 전망대로 · <span class="price">1,000엔</span>/1인 (온라인 예매 약 800엔) · 9:30~22:00</div>
-        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%B2%A1%E3%82%BF%E3%83%AF%E3%83%BC" target="_blank" rel="noopener">🗺️ 후쿠오카 타워</a></div></div></div>
+        <div class="muted">해 질 무렵(<b>17시 20분 전후</b>) 전망대로 · <span class="price">1,000엔</span>/1인 (온라인 예매 약 800엔) · 9:30~22:00</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%B2%A1%E3%82%BF%E3%83%AF%E3%83%BC" target="_blank" rel="noopener">🗺️ 후쿠오카 타워</a></div></div></div>
       <div class="ti"><div class="card"><div class="time">18:30 ~ 19:45</div><h3>👜 이와타야 본점 · 셀린느</h3>
-        <div class="muted">타워에서 택시나 버스로 텐진 복귀 · 이와타야는 <b>20:00 폐점</b>이라 늦지 않게 · 호텔 바로 옆</div>
-        <div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%B2%A9%E7%94%B0%E5%B1%8B%E6%9C%AC%E5%BA%97" target="_blank" rel="noopener">🗺️ 이와타야</a></div></div></div>
-      <div class="ti"><div class="card"><div class="time">20:00</div><h3>🍲 저녁 모츠나베</h3>
-        <div class="muted">일요일 저녁은 붐비니 <b>예약</b> 추천</div></div></div>
-      <div class="ti"><div class="card"><div class="time">밤</div><h3>🧳 짐 싸기 + 프런트에 내일 아침 택시 예약</h3>
-        <div class="muted">제주팀 07:50, 인천팀 08:40 출발 · ‘이동’ 탭의 예약 카드를 보여주세요</div></div></div>
-      <div class="ti"><div class="card slot" data-slot="d2-a"><div class="time">메모</div><textarea class="memo" rows="2" placeholder="추가 메모…"></textarea></div></div>
+        <div class="muted">타워에서 택시나 버스로 텐진 복귀 · 이와타야는 <b>20:00 폐점</b> · 호텔 바로 옆</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%B2%A9%E7%94%B0%E5%B1%8B%E6%9C%AC%E5%BA%97" target="_blank" rel="noopener">🗺️ 이와타야</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">20:00</div><h3>🍖 저녁 · 아래 후보 중 택1 (예약)</h3>
+        <div class="muted"><b>直球ホルモン 今泉店</b> (호텔에서 걸어서 갈 거리, 야키니쿠+솥밥) · 또는 <b>모츠나베</b> · 맛집 탭 참고</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%20%E9%8A%80%E3%81%97%E3%82%83%E3%82%8A%20%E7%9B%B4%E7%90%83%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%20%E4%BB%8A%E6%B3%89%E5%BA%97" target="_blank" rel="noopener">🗺️ 직구 호르몬</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">밤</div><h3>🧳 짐 싸기 · 알람 맞추기</h3>
+        <div class="muted">제주팀 07:40, 인천팀 08:30 호텔 출발 (지하철)</div></div></div>
     </div>
+    <div class="tl plan" data-plan="B">
+      <div class="ti"><div class="card"><div class="time">09:30 ~ 10:45</div><h3>⛩️ 쿠시다 신사 + 가와바타 상점가</h3>
+        <div class="muted">느긋하게 출발 · 하카타의 수호 신사와 옛 상점가 산책 · 호텔에서 지하철 1정거장(나카스카와바타) 또는 택시</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E6%AB%9B%E7%94%B0%E7%A5%9E%E7%A4%BE" target="_blank" rel="noopener">🗺️ 쿠시다 신사</a></div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">10:50 ~ 12:00</div><h3>🐟 점심 · 마코토 (食事と酒処 真)</h3>
+        <div class="muted"><b>秋サバ一枚焼(고등어 한 마리 구이) 정식</b> 한 가지 메뉴 · 밥 리필 무료 · 1인 1,000~2,000엔 · 텐진 1-15-3 (우마카몬 거리) · <b>11:00 오픈, 점심엔 줄이 길어요</b> · ⚠️ <b>일요일 영업 여부는 구글맵 영업시간에서 꼭 확인</b><br>👉 이 플랜에선 <b>오픈 직전 도착</b>이라 줄이 짧아요</div><div class="linkrow"><a class="lbtn map" href="https://maps.app.goo.gl/KGYiKh64AoC5qKh16" target="_blank" rel="noopener">🗺️ 마코토</a></div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">12:15 ~ 13:15</div><h3>🍵 쇼후엔 (松風園) · 정원 + 말차</h3>
+        <div class="muted">택시 약 10분 · 여유 있게 말차까지 · 9:00~17:00, 화요일 휴원</div><div class="linkrow"><a class="lbtn map" href="https://maps.app.goo.gl/YTVpPJahJAb2iXW49" target="_blank" rel="noopener">🗺️ 쇼후엔</a><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('shofuen')">🚕 택시 카드</button></div></div></div>
+      <div class="ti"><div class="card"><div class="time">13:30 ~ 15:30</div><h3>🌳 오호리 공원 + 일본정원 + 후쿠오카성터</h3>
+        <div class="muted">택시 약 10분 · 호수 한 바퀴(약 2km) · 일본정원 250엔 · 옆 <b>마이즈루 공원(후쿠오카성터)</b> 천수대에 올라가면 시내 전망 · 호숫가 스타벅스</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%A4%A7%E6%BF%A0%E5%85%AC%E5%9C%92" target="_blank" rel="noopener">🗺️ 오호리</a><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E8%88%9E%E9%B6%B4%E5%85%AC%E5%9C%92%20%E5%A4%A9%E5%AE%88%E5%8F%B0" target="_blank" rel="noopener">🗺️ 성터</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">15:45 → 16:00</div><h3>🚕 택시 2대 → 후쿠오카 타워</h3>
+        <div class="muted">약 10~15분</div><div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('tower')">🚕 타워 택시 카드</button></div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">16:00 ~ 18:00</div><h3>🗼 모모치 해변 → 후쿠오카 타워 (일몰 + 야경)</h3>
+        <div class="muted">해 질 무렵(<b>17시 20분 전후</b>) 전망대로 · <span class="price">1,000엔</span>/1인 (온라인 예매 약 800엔) · 9:30~22:00</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E7%A6%8F%E5%B2%A1%E3%82%BF%E3%83%AF%E3%83%BC" target="_blank" rel="noopener">🗺️ 후쿠오카 타워</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">18:30 ~ 19:45</div><h3>👜 이와타야 본점 · 셀린느</h3>
+        <div class="muted">타워에서 택시나 버스로 텐진 복귀 · 이와타야는 <b>20:00 폐점</b> · 호텔 바로 옆</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%B2%A9%E7%94%B0%E5%B1%8B%E6%9C%AC%E5%BA%97" target="_blank" rel="noopener">🗺️ 이와타야</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">20:00</div><h3>🍖 저녁 · 아래 후보 중 택1 (예약)</h3>
+        <div class="muted"><b>直球ホルモン 今泉店</b> (호텔에서 걸어서 갈 거리, 야키니쿠+솥밥) · 또는 <b>모츠나베</b> · 맛집 탭 참고</div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E7%84%BC%E8%82%89%20%E9%8A%80%E3%81%97%E3%82%83%E3%82%8A%20%E7%9B%B4%E7%90%83%E3%83%9B%E3%83%AB%E3%83%A2%E3%83%B3%20%E4%BB%8A%E6%B3%89%E5%BA%97" target="_blank" rel="noopener">🗺️ 직구 호르몬</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">밤</div><h3>🧳 짐 싸기 · 알람 맞추기</h3>
+        <div class="muted">제주팀 07:40, 인천팀 08:30 호텔 출발 (지하철)</div></div></div>
+    </div>
+    <div class="tl"><div class="ti"><div class="card slot" data-slot="d2-a"><div class="time">메모</div><textarea class="memo" rows="2" placeholder="추가 메모…"></textarea></div></div></div>
   </div>
 
   <div class="day">
     <div class="dayhead"><b>DAY 3</b><span class="muted">11/9 (월) · 귀국</span></div>
     <div class="tl">
       <div class="ti"><div class="card"><div class="time">전날 밤</div><h3>🧳 짐 싸기 완료 · 알람 맞추기</h3>
-        <div class="muted">제주팀은 07:00, 인천팀은 07:40쯤 기상 추천</div></div></div>
-      <div class="ti hl"><div class="card"><div class="time">07:50</div><h3>🟠 제주팀 3명 체크아웃 → 공항</h3>
-        <div class="muted">택시 1대로 국제선 직행 (약 20~30분) → <b>08:30 도착</b> → 10:30 출발</div>
-        <div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('airport')">🚕 공항행 택시 카드</button></div></div></div>
-      <div class="ti hl"><div class="card"><div class="time">08:40</div><h3>🔵 인천팀 2명 체크아웃 → 공항</h3>
-        <div class="muted">택시 1대로 국제선 직행 → <b>09:20 도착</b> → 11:20 출발</div>
-        <div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('airport')">🚕 공항행 택시 카드</button></div></div></div>
+        <div class="muted">제주팀은 06:50, 인천팀은 07:30쯤 기상 추천</div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">07:40</div><h3>🟠 제주팀 3명 체크아웃 → 공항 (지하철)</h3>
+        <div class="muted">호텔 → 지하철 텐진역(도보 약 5분) → 공항선 <b>후쿠오카공항역</b>(약 11분) → 무료 셔틀로 국제선(약 10분) → <b>08:25쯤 도착</b> → 10:30 출발</div></div></div>
+      <div class="ti hl"><div class="card"><div class="time">08:30</div><h3>🔵 인천팀 2명 체크아웃 → 공항 (지하철)</h3>
+        <div class="muted">호텔 → 지하철 텐진역(도보 약 5분) → 공항선 <b>후쿠오카공항역</b>(약 11분) → 무료 셔틀로 국제선(약 10분) → <b>09:15쯤 도착</b> → 11:20 출발</div></div></div>
+      <div class="ti"><div class="card"><div class="time">대안</div><h3>🚌 텐진 → 국제선 직행 특급버스</h3>
+        <div class="muted">니시테츠 텐진 고속버스터미널(西鉄天神高速バスターミナル)에서 국제선까지 <b>논스톱 500엔</b> · 2026년 4월 신설, 하루 17왕복 · 아침 시간에 맞는 편이 있으면 환승 없이 가요 → <b>시간표는 현지에서 확인</b></div><div class="linkrow"><a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E8%A5%BF%E9%89%84%E5%A4%A9%E7%A5%9E%E9%AB%98%E9%80%9F%E3%83%90%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB" target="_blank" rel="noopener">🗺️ 버스터미널</a></div></div></div>
+      <div class="ti"><div class="card"><div class="time">비상시</div><h3>🚕 늦었으면 택시</h3>
+        <div class="muted">지하철이 늦거나 짐이 버거우면 택시로 국제선 직행 (약 20~30분)</div><div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('airport')">🚕 공항(국제선) 택시 카드</button></div></div></div>
       <div class="ti"><div class="card slot" data-slot="d3-a"><div class="time">메모</div><textarea class="memo" rows="2" placeholder="공항에서 살 기념품, 면세점 등"></textarea></div></div>
     </div>
   </div>
@@ -365,17 +385,23 @@ table.cmp thead th{color:var(--navy);font-size:14px}
     </ul>
   </div>
 
-  <h2 class="sec">🛫 귀국일 11/9(월) 공항 가기 <small>팀별 택시 추천</small></h2>
+  <h2 class="sec">🛫 귀국일 11/9(월) 공항 가기 <small>지하철 기본 · 버스 대안</small></h2>
   <div class="card">
+    <h3>🚇 기본: 지하철 + 셔틀 (약 45분, 260엔)</h3>
     <ul class="muted" style="padding-left:18px;margin:0 0 8px">
-      <li>월요일 <b>출근 시간</b>이라 지하철이 붐벼요. 캐리어를 들고 타기 힘들고, 국내선역에 내려서 셔틀도 또 타야 해요.</li>
-      <li>팀별로 <b>택시 1대씩</b> 타면 짐 싣고 국제선 앞에 바로 내려요 (제주팀 3명, 인천팀 2명 → 각자 한 대).</li>
-      <li>기사님께 꼭 <b class="jp">「国際線ターミナル」</b>(국제선 터미널)라고 하세요. 국내선에 내리면 셔틀로 10분 넘게 더 가야 해요.</li>
-      <li>아침 택시는 호텔 프런트에 <b>전날 밤 예약</b>을 부탁하면 확실해요 · <span class="jp">「明日の朝7時50分にタクシーをお願いします」</span></li>
+      <li>텐진역 → 공항선 <b>후쿠오카공항(福岡空港)</b> 방면 → 종점 하차 (약 11분)</li>
+      <li>국내선에서 <b>국제선행 무료 셔틀</b> 탑승 (약 10분 + 대기)</li>
+      <li>월요일 출근 시간이라 <b>텐진→하카타 구간이 붐벼요</b>. 캐리어는 문 옆에 세우고, 엘리베이터는 팀별로 나눠 타세요</li>
+      <li>컨택리스 카드 <b>1인 1장</b> 태그는 첫날과 똑같아요</li>
+    </ul>
+    <h3>🚌 대안: 텐진 → 국제선 특급버스 (논스톱, 500엔)</h3>
+    <ul class="muted" style="padding-left:18px;margin:0 0 8px">
+      <li>니시테츠 텐진 고속버스터미널(西鉄福岡(天神)駅 건물)에서 국제선까지 환승 없이 가요</li>
+      <li>하루 17왕복이라 <b>아침에 맞는 편이 있는지 전날 터미널에서 시간표 확인</b>하세요. 맞는 편이 있으면 짐 많을 때 가장 편해요</li>
     </ul>
     <div class="linkrow">
-      <button class="lbtn map" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('airport')">🚕 공항(국제선) 택시 카드</button>
-      <button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('reserve')">🛎️ 프런트 택시 예약 카드</button>
+      <a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E8%A5%BF%E9%89%84%E5%A4%A9%E7%A5%9E%E9%AB%98%E9%80%9F%E3%83%90%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB" target="_blank" rel="noopener">🗺️ 고속버스터미널</a>
+      <button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('airport')">🚕 비상용 택시 카드</button>
     </div>
   </div>
 
@@ -525,9 +551,9 @@ const TAXI = {
     ko:"후쿠오카 타워까지 부탁합니다"},
   reserve:{label:"🛎️ 택시 예약",
     big:"明日の朝<br>タクシーを<br>予約できますか？",
-    addr:"7:50 → 3人（国際線）<br>8:40 → 2人（国際線）",
+    addr:"7:40 → 3人（国際線）<br>8:30 → 2人（国際線）",
     ask:"",
-    ko:"내일 아침 택시 예약할 수 있나요? 7:50에 3명, 8:40에 2명 (국제선)"},
+    ko:"내일 아침 택시 예약할 수 있나요? 7:40에 3명, 8:30에 2명 (국제선) — 지하철 대신 택시가 필요할 때만"},
   card:{label:"💳 카드 결제?",
     big:"クレジットカードで<br>払えますか？",
     addr:"",
@@ -541,14 +567,20 @@ const TAXI = {
 };
 
 const RESTS = [
+  {e:"🐟",n:"마코토 (食事と酒処 真)",jp:"食事と酒処 真（まこと）",q:"食事と酒処 真 天神",
+   d:"고등어 한 마리를 통째로 굽는 秋サバ一枚焼 정식 한 가지. 밥 리필 무료. 11:00 오픈, 점심 줄 김. 텐진 1-15-3 · ☎ 092-712-0201",t:["둘째 날 점심","일요일 영업 확인"]},
+  {e:"🦑",n:"博多かんべえ 祇園邸",jp:"博多かんべえ 祇園邸 イカ活造りと個室",q:"博多かんべえ 祇園邸",
+   d:"살아있는 오징어 활어회(イカ活造り), 말고기회, 고마사바, 모츠나베까지. 2~22명 완전 개별실, 한국어 메뉴. 16:00~새벽 1:00 · 1인 약 5,000엔.",t:["첫날 저녁","개별실 예약 필수"]},
+  {e:"🍖",n:"銀しゃり焼肉 直球ホルモン 今泉店",jp:"焼肉 銀しゃり 直球ホルモン 今泉店",q:"焼肉 銀しゃり 直球ホルモン 今泉店",
+   d:"규슈산 와규·호르몬 야키니쿠 + 솥밥(銀しゃり) 무한리필 코스. 호텔에서 걸어갈 수 있는 이마이즈미. 영업시간은 구글맵에서 확인.",t:["둘째 날 저녁 후보","예약 추천"]},
   {e:"🍲",n:"모츠나베 (곱창전골)",jp:"もつ鍋 楽天地 天神本店",q:"もつ鍋 楽天地 天神",
-   d:"후쿠오카 대표 향토요리. 간장/된장 국물 선택 → 마지막에 짬뽕면 추가가 국룰.",t:["저녁 추천","5인 테이블 예약 권장"]},
+   d:"후쿠오카 대표 향토요리. 간장/된장 국물 선택 → 마지막에 짬뽕면 추가가 국룰.",t:["둘째 날 저녁 후보","5인 테이블 예약 권장"]},
   {e:"🍜",n:"신신라멘 텐진본점",jp:"博多らーめん ShinShin 天神本店",q:"ShinShin 天神本店",
    d:"얇은 면 하카타 돈코츠. 늦게까지 영업해 야식으로 좋음. 대기줄 있음.",t:["야식","줄 서는 곳"]},
   {e:"🐟",n:"원조 멘타이쥬",jp:"元祖博多めんたい重",q:"元祖博多めんたい重",
    d:"명란을 통째로 올린 찬합 덮밥 + 멘타이 츠케멘. 아침 일찍 열어 오픈런 추천.",t:["아침 추천","나카스 강변"]},
   {e:"🍔",n:"키와미야 함바그",jp:"極味や 福岡パルコ店",q:"極味や 福岡パルコ店",
-   d:"돌판에 직접 구워먹는 함바그. 텐진 파르코 지하. 대기 길어 번호표 먼저 받기.",t:["점심","대기 김"]},
+   d:"돌판에 직접 구워먹는 함바그. 텐진 파르코 지하 / 텐진 우마카 요코초. 대기 길어 번호표 먼저 받기.",t:["마코토 대안 점심","대기 김"]},
 ];
 
 const PHRASES = [
@@ -575,7 +607,8 @@ const CHECKS = [
   "110V 돼지코 어댑터 (일본은 A타입 11자형 플러그)",
   "호텔 예약확인서 캡처 (체크인 14:00 / 체크아웃 11:00)",
   "항공권(e-티켓) 캡처 — 인천팀·제주팀 각자",
-  "귀국 전날 밤: 짐 싸기 + 프런트에 아침 택시 예약",
+  "귀국 전날 밤: 짐 싸기 + 특급버스 아침 시간표 확인",
+  "저녁 예약: かんべえ 祇園邸(토) · 둘째 날 저녁(일)",
   "이 가이드 ‘홈 화면에 추가’ (오프라인용)",
   "캐리어 이름표 · 무게 확인",
 ];
@@ -700,6 +733,14 @@ function dday(){
   const diff=Math.round((d-d0)/86400000), el=document.getElementById("dday");
   el.textContent = diff<0?`D${diff}`:diff<=2?`여행 ${diff+1}일차`:"여행 완료 🎉";
 }
+
+/* ===== day2 plan ===== */
+function setPlan(p){
+  document.querySelectorAll('.tl.plan').forEach(t=>t.classList.toggle('on',t.dataset.plan===p));
+  document.querySelectorAll('.plantabs button').forEach(b=>b.classList.toggle('on',b.dataset.plan===p));
+  store.set('plan',p);
+}
+setPlan(store.get('plan','A'));
 
 /* ===== init ===== */
 renderRests();renderSlots();renderPhrases();renderChecks();bindDaySlots();netState();dday();
