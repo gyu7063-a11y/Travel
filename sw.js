@@ -6,7 +6,7 @@
  *  - 외부 링크(유튜브·지도·블로그): 캐싱하지 않음 (온라인 전용)
  * 내용 수정 후 배포할 때는 CACHE_VERSION 숫자만 올리면 됩니다.
  */
-const CACHE_VERSION = "v9";
+const CACHE_VERSION = "v10";
 const CACHE_NAME = `fuk26-${CACHE_VERSION}`;
 const APP_SHELL = [
   "./",
