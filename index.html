@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f2f4f">
+<meta name="robots" content="noindex, nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="후쿠오카 여행">
+<title>후쿠오카 가족여행 2026 · 가이드북</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<style>
+:root{
+  --navy:#0f2f4f; --navy2:#1c4a73; --red:#c8402f; --gold:#e8a33d;
+  --bg:#f4f1ea; --card:#ffffff; --ink:#1d2329; --sub:#5d6670; --line:#e3ddd1;
+  --ok:#2f8f5b; --radius:18px;
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Hiragino Sans","Noto Sans JP",sans-serif;
+  font-size:16px;line-height:1.55}
+a{color:var(--navy2)}
+.app{max-width:560px;margin:0 auto;min-height:100vh;padding-bottom:calc(92px + var(--safe-b))}
+
+/* ---------- header ---------- */
+.hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;
+  padding:calc(18px + var(--safe-t)) 18px 20px;border-radius:0 0 26px 26px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,163,61,.35),transparent 70%)}
+.hero .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.hero h1{margin:6px 0 2px;font-size:23px;letter-spacing:-.3px}
+.hero .meta{font-size:13.5px;opacity:.85}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.14)}
+.pill.dot::before{content:"";width:7px;height:7px;border-radius:50%;background:#7be3a3}
+.pill.off::before{background:#ff9a8a}
+.dday{font-weight:800;font-size:13px;background:var(--gold);color:#2a1a00;padding:4px 10px;border-radius:99px}
+
+/* quick actions */
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 0;position:relative;z-index:1}
+.qbtn{border:0;border-radius:16px;padding:12px 6px;background:#fff;color:var(--navy);font-weight:700;font-size:13px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(0,0,0,.18);cursor:pointer;font-family:inherit}
+.qbtn .ic{font-size:24px;line-height:1}
+.qbtn:active{transform:scale(.96)}
+.qbtn.primary{background:var(--gold);color:#2a1a00}
+
+/* ---------- sections ---------- */
+main{padding:6px 14px}
+.page{display:none;animation:fade .25s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.sec{font-size:19px;margin:22px 4px 10px;display:flex;align-items:center;gap:8px}
+h2.sec small{font-size:12px;color:var(--sub);font-weight:500}
+.card{background:var(--card);border-radius:var(--radius);padding:16px;margin:0 0 12px;box-shadow:0 1px 0 var(--line),0 6px 18px rgba(15,47,79,.06)}
+.card h3{margin:0 0 6px;font-size:16.5px}
+.muted{color:var(--sub);font-size:13.5px}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:#eef3f8;color:var(--navy2);margin:0 4px 4px 0}
+.tag.red{background:#fbe9e6;color:var(--red)}
+.tag.gold{background:#fdf1dc;color:#8a5a00}
+.tag.green{background:#e4f4ea;color:var(--ok)}
+.notice{border-left:4px solid var(--gold);background:#fffaf0;padding:10px 12px;border-radius:10px;font-size:13.5px;margin:10px 0}
+.notice.red{border-color:var(--red);background:#fff4f2}
+.jp{font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif}
+
+/* timeline */
+.day{margin-bottom:14px}
+.dayhead{display:flex;align-items:baseline;gap:8px;margin:0 4px 8px}
+.dayhead b{font-size:17px}
+.tl{position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.ti{position:relative;margin-bottom:10px}
+.ti::before{content:"";position:absolute;left:-20px;top:18px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--navy2)}
+.ti.hl::before{border-color:var(--red)}
+.ti .card{margin:0}
+.ti .time{font-size:12.5px;font-weight:800;color:var(--navy2)}
+.slot{border:2px dashed var(--line);background:transparent;box-shadow:none;color:var(--sub)}
+textarea.memo,input.memo{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;background:#fffdf8;resize:vertical}
+
+/* steps */
+.steps{counter-reset:s}
+.step{display:flex;gap:12px;align-items:flex-start}
+.step .n{flex:0 0 34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;display:grid;place-items:center}
+.step .n.gold{background:var(--gold);color:#2a1a00}
+.step p{margin:4px 0 0}
+.linkrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.lbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:13px;font-weight:700;
+  padding:8px 12px;border-radius:12px;background:#eef3f8;color:var(--navy)}
+.lbtn.yt{background:#fde8e6;color:#b3261e}
+.lbtn.nv{background:#e5f6ea;color:#127a3a}
+.lbtn.ts{background:#fff0e3;color:#a64b00}
+.lbtn.map{background:var(--navy);color:#fff}
+
+/* compare table */
+table.cmp{width:100%;border-collapse:collapse;font-size:13.5px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+table.cmp th{color:var(--sub);font-weight:600;width:24%}
+table.cmp thead th{color:var(--navy);font-size:14px}
+
+/* restaurant */
+.rest .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.rest .emoji{font-size:30px;line-height:1}
+.price{font-weight:800;color:var(--red)}
+.menu{margin:8px 0 0;padding:0;list-style:none}
+.menu li{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.menu li:last-child{border:0}
+
+/* phrases */
+.phr{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer}
+.phr .ko{font-size:13px;color:var(--sub)}
+.phr .ja{font-size:17px;font-weight:700}
+.phr .rd{font-size:12.5px;color:var(--navy2)}
+.phr .zoom{flex:0 0 auto;font-size:20px;opacity:.6}
+
+/* checklist */
+.chk{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+.chk:last-child{border:0}
+.chk input{width:22px;height:22px;accent-color:var(--ok);flex:0 0 auto;margin-top:1px}
+.chk.done span{text-decoration:line-through;color:var(--sub)}
+
+/* bottom dock */
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + var(--safe-b));width:calc(100% - 24px);max-width:536px;
+  background:rgba(15,47,79,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-radius:22px;display:grid;grid-template-columns:repeat(5,1fr);padding:6px;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+.dock button{background:none;border:0;color:#b8c7d6;font:inherit;font-size:11px;font-weight:700;padding:7px 0 5px;border-radius:16px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.dock button .ic{font-size:21px;line-height:1}
+.dock button.on{background:rgba(255,255,255,.12);color:#fff}
+
+/* overlay (taxi card) */
+.ov{position:fixed;inset:0;background:#fff;z-index:100;display:none;flex-direction:column;padding:calc(18px + var(--safe-t)) 18px calc(18px + var(--safe-b))}
+.ov.show{display:flex}
+.ov .close{align-self:flex-end;border:0;background:#eee;border-radius:99px;padding:10px 16px;font:inherit;font-weight:700;font-size:15px}
+.ov .body{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;gap:14px}
+.ov .big{font-size:clamp(30px,9vw,46px);font-weight:900;line-height:1.3;color:#000}
+.ov .addr{font-size:clamp(22px,6.5vw,30px);font-weight:800;line-height:1.45;color:#111}
+.ov .ask{font-size:clamp(22px,6vw,28px);font-weight:700;color:var(--red)}
+.ov .ko{font-size:14px;color:var(--sub)}
+.ov .switch{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.ov .switch button{border:1px solid var(--line);background:#fafafa;border-radius:99px;padding:8px 12px;font:inherit;font-size:13px;font-weight:700}
+.ov .switch button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.ov.rot .body{transform:rotate(90deg);transform-origin:center}
+
+.toast{position:fixed;left:50%;bottom:calc(100px + var(--safe-b));transform:translateX(-50%) translateY(20px);opacity:0;
+  background:#111;color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;transition:.25s;z-index:200;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.footer{font-size:12px;color:var(--sub);text-align:center;margin:24px 0 8px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="hero">
+  <div class="row">
+    <span class="pill dot" id="net">온라인</span>
+    <span class="dday" id="dday">D-1</span>
+  </div>
+  <h1>후쿠오카 가족여행 🍜</h1>
+  <div class="meta">2026.11.07(토) – 11.09(월) · 2박 3일 · 성인 5명 · 캐리어 5개</div>
+  <div class="quick">
+    <button class="qbtn primary" onclick="openTaxi('hotel')"><span class="ic">🚕</span>택시 카드</button>
+    <button class="qbtn" onclick="copyAddr()"><span class="ic">📋</span>일본어 주소 복사</button>
+    <button class="qbtn" onclick="openMap()"><span class="ic">🗺️</span>구글 맵 열기</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= HOME ================= -->
+<section class="page active" id="p-home">
+  <h2 class="sec">🏨 숙소</h2>
+  <div class="card">
+    <h3>리치몬드 호텔 텐진 니시도리</h3>
+    <div class="jp" style="font-size:15px;font-weight:700">リッチモンドホテル天神西通</div>
+    <div class="jp muted">〒810-0001 福岡県福岡市中央区天神2丁目6-16</div>
+    <div style="margin-top:8px">
+      <span class="tag">지하철 텐진역 도보 약 5분</span>
+      <span class="tag gold">체크인·아웃 시간은 예약확인서 확인</span>
+    </div>
+    <div class="linkrow">
+      <a class="lbtn map" href="https://maps.app.goo.gl/qfgNWRtA6cLQXcDm9" target="_blank" rel="noopener">🗺️ 구글 맵</a>
+      <button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="copyAddr()">📋 주소 복사</button>
+    </div>
+  </div>
+
+  <h2 class="sec">🗓️ 일정 <small>탭해서 메모 가능 · 폰에 자동 저장</small></h2>
+
+  <div class="day">
+    <div class="dayhead"><b>DAY 1</b><span class="muted">11/7 (토) · 도착 & 텐진</span></div>
+    <div class="tl">
+      <div class="ti hl"><div class="card"><div class="time">도착 후</div><h3>✈️ 후쿠오카공항 국제선 도착</h3>
+        <div class="muted">입국 → 짐 찾기 → 셔틀 or 택시 결정 (아래 ‘이동’ 탭)</div></div></div>
+      <div class="ti"><div class="card"><div class="time">+30~40분</div><h3>🚇 지하철 공항선 → 텐진역</h3>
+        <div class="muted">5정거장 · 260엔 · 카드 1인 1장 태그</div></div></div>
+      <div class="ti"><div class="card"><div class="time">체크인</div><h3>🏨 호텔 체크인 / 짐 맡기기</h3>
+        <div class="muted">체크인 전이면 프런트에 캐리어 보관 요청</div></div></div>
+      <div class="ti"><div class="card slot" data-slot="d1-a"><div class="time">저녁</div><textarea class="memo" rows="2" placeholder="예) 모츠나베 or 신신라멘 …"></textarea></div></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><b>DAY 2</b><span class="muted">11/8 (일)</span></div>
+    <div class="tl">
+      <div class="ti"><div class="card slot" data-slot="d2-a"><div class="time">오전</div><textarea class="memo" rows="2" placeholder="예) 아침 멘타이쥬 (오픈런)"></textarea></div></div>
+      <div class="ti hl"><div class="card"><div class="time">점심 추천</div><h3>🍱 요시즈카 우나기야</h3>
+        <div class="muted">상 우나쥬 + 우마키 · 오픈 시간 맞춰 가면 대기 ↓</div></div></div>
+      <div class="ti"><div class="card slot" data-slot="d2-b"><div class="time">오후</div><textarea class="memo" rows="2" placeholder="일정 추가…"></textarea></div></div>
+      <div class="ti"><div class="card slot" data-slot="d2-c"><div class="time">저녁</div><textarea class="memo" rows="2" placeholder="일정 추가…"></textarea></div></div>
+    </div>
+  </div>
+
+  <div class="day">
+    <div class="dayhead"><b>DAY 3</b><span class="muted">11/9 (월) · 귀국</span></div>
+    <div class="tl">
+      <div class="ti"><div class="card slot" data-slot="d3-a"><div class="time">오전</div><textarea class="memo" rows="2" placeholder="체크아웃 후 짐 보관 → 쇼핑 등"></textarea></div></div>
+      <div class="ti hl"><div class="card"><div class="time">출국 2~3시간 전</div><h3>✈️ 공항 이동 (국제선!)</h3>
+        <div class="muted">지하철은 국내선 도착 → 셔틀로 국제선. 택시는 반드시 <b class="jp">国際線ターミナル</b> 라고 말하기</div>
+        <div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('airport')">🚕 공항행 택시 카드</button></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MOVE ================= -->
+<section class="page" id="p-move">
+  <h2 class="sec">🚇 공항 → 텐진역 → 숙소 <small>추천 루트 A</small></h2>
+
+  <div class="card steps">
+    <div class="step"><div class="n">1</div><div>
+      <h3>국제선 1층 → 무료 셔틀버스 (국내선행)</h3>
+      <p class="muted">입국장을 나와 <b>‘국내선 / 지하철(Domestic Terminal · Subway)’</b> 표지를 따라 1층 버스 승강장으로. 셔틀은 무료, 약 10분 소요, 캐리어 둘 공간 있음.</p>
+      <div class="notice">📌 승강장 번호: 메모상 <b>5번</b>이지만, 블로그·호텔 안내 중에는 <b>1번</b>으로 적힌 곳도 있어요. 번호보다 <b>“国内線 連絡バス(국내선 연결버스)”</b> 표지가 정확합니다. 6·7·8번은 <b>유료</b> 하카타/텐진행 노선버스이니 혼동 주의!</div>
+    </div></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+    <div class="step"><div class="n">2</div><div>
+      <h3>국내선 하차 → 후쿠오카공항역 (지하)</h3>
+      <p class="muted">내리면 바로 지하철 입구. 엘리베이터 이용 가능 — 캐리어 5개는 2회로 나눠 타세요.</p>
+    </div></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+    <div class="step"><div class="n">3</div><div>
+      <h3>컨택리스 카드 태그 → 공항선 탑승</h3>
+      <p class="muted"><b>방면: 메이노하마(姪浜) 방향</b> · 하카타 → 기온 → 나카스카와바타 → <b>텐진(天神)</b> 5번째 정거장 · <span class="price">260엔</span></p>
+      <div class="notice red">💳 <b>1인 1카드!</b> 한 카드로 여러 명 결제 불가. 5명 모두 NFC(물결 마크) 카드 필요 · 파란색 리더기가 붙은 개찰구만 가능 · 내릴 때도 <b>같은 카드</b>로 태그 · 지갑째 대지 말고 카드 1장만.</div>
+      <div><span class="tag">VISA</span><span class="tag">Master</span><span class="tag">JCB</span><span class="tag">AMEX</span><span class="tag green">하루 최대 640엔 상한</span></div>
+    </div></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:14px 0">
+    <div class="step"><div class="n gold">4</div><div>
+      <h3>텐진역 → 백화점 엘리베이터 → 니시도리 → 호텔</h3>
+      <p class="muted">계단 대신 <b>엘리베이터 동선</b>으로 지상까지 올라가기:</p>
+      <ol class="muted" style="padding-left:18px;margin:6px 0">
+        <li>텐진역 개찰구를 나와 <b>서쪽(니시도리·이와타야 방면)</b> 표지로 이동</li>
+        <li>지하에서 <b>이와타야 본관(岩田屋本館)</b> 또는 <b>솔라리아 플라자(ソラリアプラザ)</b> 지하 입구로 진입</li>
+        <li>백화점 내부 엘리베이터로 <b>1F</b> → 니시도리(西通り) 쪽 출구</li>
+        <li>지도 앱 따라 도보 약 3~5분 → 호텔</li>
+      </ol>
+      <div class="notice">⏰ 백화점은 보통 <b>10:00 전후 오픈</b>이라, 이른 아침·밤늦게는 내부 통과 불가. 이때는 지하상가·역 출구의 <b>공공 엘리베이터(エレベーター)</b> 표지를 따라가세요.</div>
+      <div class="linkrow">
+        <a class="lbtn map" href="https://maps.app.goo.gl/qfgNWRtA6cLQXcDm9" target="_blank" rel="noopener">🗺️ 호텔 위치</a>
+        <a class="lbtn" href="https://www.google.com/maps/dir/?api=1&origin=%E5%A4%A9%E7%A5%9E%E9%A7%85+%E7%A6%8F%E5%B2%A1&destination=%E3%83%AA%E3%83%83%E3%83%81%E3%83%A2%E3%83%B3%E3%83%89%E3%83%9B%E3%83%86%E3%83%AB%E5%A4%A9%E7%A5%9E%E8%A5%BF%E9%80%9A&travelmode=walking" target="_blank" rel="noopener">🚶 텐진역→호텔 도보 길찾기</a>
+      </div>
+    </div></div>
+  </div>
+
+  <h2 class="sec">🎬 영상 · 📸 사진 가이드</h2>
+  <div class="card">
+    <h3>사진으로 보는 블로그 가이드</h3>
+    <div class="linkrow">
+      <a class="lbtn" href="https://www.trvlogue.com/ko/fukuoka-airport-to-tenjin" target="_blank" rel="noopener">📸 공항→텐진역 단계별 사진</a>
+      <a class="lbtn" href="https://www.trvlogue.com/ko/fukuoka-subway-contactless-2026" target="_blank" rel="noopener">💳 지하철 컨택리스 탑승법</a>
+      <a class="lbtn" href="https://www.trvlogue.com/ko/fukuoka-airport-city-transport" target="_blank" rel="noopener">🚌 버스·지하철·택시 비교</a>
+    </div>
+    <h3 style="margin-top:14px">최신 영상 · 후기 검색 (탭하면 최신순 결과)</h3>
+    <div class="linkrow">
+      <a class="lbtn yt" href="https://www.youtube.com/results?search_query=%ED%9B%84%EC%BF%A0%EC%98%A4%EC%B9%B4%EA%B3%B5%ED%95%AD+%ED%85%90%EC%A7%84%EC%97%AD+%EC%A7%80%ED%95%98%EC%B2%A0+%EA%B0%80%EB%8A%94%EB%B2%95&sp=CAI%253D" target="_blank" rel="noopener">▶ 유튜브: 공항→텐진 지하철</a>
+      <a class="lbtn yt" href="https://www.youtube.com/results?search_query=%ED%9B%84%EC%BF%A0%EC%98%A4%EC%B9%B4+%EC%A7%80%ED%95%98%EC%B2%A0+%EC%BB%A8%ED%83%9D%EB%A6%AC%EC%8A%A4+%ED%83%9C%EA%B7%B8&sp=CAI%253D" target="_blank" rel="noopener">▶ 유튜브: 컨택리스 태그</a>
+      <a class="lbtn nv" href="https://search.naver.com/search.naver?ssc=tab.blog.all&query=%ED%9B%84%EC%BF%A0%EC%98%A4%EC%B9%B4%EA%B3%B5%ED%95%AD+%EA%B5%AD%EC%A0%9C%EC%84%A0+%EA%B5%AD%EB%82%B4%EC%84%A0+%EC%85%94%ED%8B%80+%ED%85%90%EC%A7%84%EC%97%AD&nso=so%3Add" target="_blank" rel="noopener">N 네이버 블로그 (최신순)</a>
+      <a class="lbtn ts" href="https://www.google.com/search?q=site%3Atistory.com+%ED%9B%84%EC%BF%A0%EC%98%A4%EC%B9%B4%EA%B3%B5%ED%95%AD+%ED%85%90%EC%A7%84%EC%97%AD+%EC%A7%80%ED%95%98%EC%B2%A0&tbs=qdr:y" target="_blank" rel="noopener">T 티스토리 (최근 1년)</a>
+      <a class="lbtn nv" href="https://search.naver.com/search.naver?ssc=tab.blog.all&query=%ED%85%90%EC%A7%84%EC%97%AD+%EC%9D%B4%EC%99%80%ED%83%80%EC%95%BC+%EC%97%98%EB%A6%AC%EB%B2%A0%EC%9D%B4%ED%84%B0+%EC%BA%90%EB%A6%AC%EC%96%B4&nso=so%3Add" target="_blank" rel="noopener">N 텐진역 캐리어·엘리베이터</a>
+    </div>
+    <p class="muted" style="margin-top:8px">※ 영상·블로그 링크는 인터넷 연결 시에만 열려요. 출발 전 와이파이에서 한 번 봐두세요.</p>
+  </div>
+
+  <h2 class="sec">🚕 대안 루트 B · 택시 2대 <small>짐 많을 때 최강</small></h2>
+  <div class="card">
+    <div class="row" style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="margin:0">국제선 1층 택시승강장 → 호텔 로비 직행</h3>
+    </div>
+    <ul class="muted" style="padding-left:18px;margin:8px 0">
+      <li>일반 택시는 승객 4명 + 트렁크가 작아 <b>3명/2명으로 나눠 2대</b> 탑승</li>
+      <li>예상 요금 <span class="price">2대 합계 약 4,500~5,000엔</span> (시간대·정체에 따라 변동) · 약 20~30분</li>
+      <li>국제선 도착층을 나오면 바로 앞에 택시승강장</li>
+      <li>기사님께 <b>택시 카드</b>를 보여주면 끝 · 대부분 카드 결제 가능하지만 탑승 전 <span class="jp">「カード使えますか?」</span> 확인</li>
+    </ul>
+    <div class="notice">💡 1대당 3명 이하로 앉으면 캐리어 1개는 뒷좌석 발밑에 둘 수 있어요. 2대가 각자 도착하므로 <b>호텔 로비에서 집합</b>으로 약속하세요.</div>
+    <div class="linkrow">
+      <button class="lbtn map" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('hotel')">🚕 택시 카드 열기</button>
+    </div>
+  </div>
+
+  <h2 class="sec">⚖️ 한눈에 비교</h2>
+  <div class="card">
+    <table class="cmp">
+      <thead><tr><th></th><th>A 셔틀+지하철</th><th>B 택시 2대</th></tr></thead>
+      <tr><th>비용(5명)</th><td>260엔×5 = <b>1,300엔</b></td><td>약 <b>4,500~5,000엔</b></td></tr>
+      <tr><th>시간</th><td>약 40~60분 (환승·도보 포함)</td><td>약 20~30분</td></tr>
+      <tr><th>캐리어</th><td>셔틀 적재 → 엘리베이터 2회 → 도보</td><td>트렁크 → 로비 앞 하차</td></tr>
+      <tr><th>추천</th><td>저렴, 정체 없음</td><td>피곤할 때·비 올 때</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ================= FOOD ================= -->
+<section class="page" id="p-food">
+  <h2 class="sec">⭐ 꼭 가는 곳</h2>
+  <div class="card rest">
+    <div class="top">
+      <div>
+        <h3>요시즈카 우나기야</h3>
+        <div class="jp muted">吉塚うなぎ屋 · 福岡市博多区中洲2-8-27</div>
+      </div>
+      <div class="emoji">🍱</div>
+    </div>
+    <div style="margin:8px 0">
+      <span class="tag green">💳 신용카드 결제 가능</span><span class="tag">1870년대 창업 노포</span><span class="tag red">점심 대기 김</span>
+    </div>
+    <ul class="menu">
+      <li><span>⭐ <b>상(上) 우나쥬</b> · 장어 5조각</span><span class="price">4,510엔</span></li>
+      <li><span>🥚 <b>우마키(う巻)</b> · 장어 넣은 달걀말이 사이드</span><span class="muted" style="white-space:nowrap">1~2개 나눠먹기</span></li>
+    </ul>
+    <div class="notice">🕚 손님이 많아 피크엔 1시간 이상 대기도 있어요. <b>오픈 시간에 맞춰 도착</b> 추천 · 휴무일·영업시간은 방문 전 구글맵에서 한 번 더 확인!</div>
+    <p class="muted" style="margin:6px 0 0">테이블의 산초 가루(山椒)를 살짝 뿌려 드세요. 함께 나오는 간국(肝吸い)도 별미.</p>
+    <div class="linkrow">
+      <a class="lbtn map" href="https://www.google.com/maps/search/?api=1&query=%E5%90%89%E5%A1%9A%E3%81%86%E3%81%AA%E3%81%8E%E5%B1%8B" target="_blank" rel="noopener">🗺️ 지도</a>
+      <button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openTaxi('unagi')">🚕 택시 카드</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🍚 우나쥬 vs 우나기동, 뭐가 달라?</h3>
+    <table class="cmp">
+      <thead><tr><th></th><th>우나쥬 鰻重</th><th>우나기동 鰻丼</th></tr></thead>
+      <tr><th>그릇</th><td>옻칠 <b>찬합(重箱)</b></td><td>둥근 <b>덮밥 그릇(丼)</b></td></tr>
+      <tr><th>서빙</th><td>요시즈카는 <b>2단 찬합</b>으로 장어·밥을 <b>분리</b>해서 내줌</td><td>밥 위에 장어를 <b>바로 얹어</b> 나옴</td></tr>
+      <tr><th>식감</th><td>장어 겉면 바삭함이 오래 유지</td><td>소스가 밥에 배어 촉촉</td></tr>
+      <tr><th>양·가격</th><td>장어 조각 많고 비쌈</td><td>상대적으로 가볍고 저렴</td></tr>
+    </table>
+    <p class="muted" style="margin:8px 0 0">👉 요시즈카에 왔다면 ‘분리 서빙’이 매력인 <b>우나쥬</b> 추천.</p>
+  </div>
+
+  <h2 class="sec">📍 텐진 중심 추천 맛집</h2>
+  <div id="restList"></div>
+
+  <h2 class="sec">➕ 추가할 맛집 <small>빈 슬롯 · 폰에 저장</small></h2>
+  <div id="slotList"></div>
+  <p class="muted" style="margin:0 4px">💡 5인 일행은 라멘집 카운터석에서 자리가 나뉠 수 있어요. 메뉴 고를 땐 <span class="jp">「5人です」</span> 먼저!</p>
+</section>
+
+<!-- ================= TALK ================= -->
+<section class="page" id="p-talk">
+  <h2 class="sec">🗣️ 바로 쓰는 일본어 <small>탭하면 크게 보여줘요</small></h2>
+  <div id="phraseList"></div>
+</section>
+
+<!-- ================= CHECK ================= -->
+<section class="page" id="p-check">
+  <h2 class="sec">✅ 출발 전 체크리스트</h2>
+  <div class="card" id="checkList"></div>
+
+  <h2 class="sec">📱 오프라인 사용법</h2>
+  <div class="card">
+    <ol class="muted" style="padding-left:18px;margin:0">
+      <li>와이파이에서 이 페이지를 한 번 끝까지 열기 (자동 저장됨)</li>
+      <li><b>아이폰</b>: Safari 공유 버튼 → <b>‘홈 화면에 추가’</b></li>
+      <li><b>안드로이드</b>: Chrome 메뉴 ⋮ → <b>‘앱 설치’ / ‘홈 화면에 추가’</b></li>
+      <li>이후 홈 화면 아이콘으로 열면 데이터 없이도 작동</li>
+    </ol>
+    <p class="muted" id="swState" style="margin:8px 0 0">오프라인 저장 상태 확인 중…</p>
+  </div>
+
+  <h2 class="sec">🆘 비상 연락</h2>
+  <div class="card">
+    <ul class="menu">
+      <li><span>🚑 구급·화재</span><a href="tel:119"><b>119</b></a></li>
+      <li><span>👮 경찰</span><a href="tel:110"><b>110</b></a></li>
+      <li><span>🇰🇷 주후쿠오카 대한민국 총영사관</span><a href="https://overseas.mofa.go.kr/jp-fukuoka-ko/index.do" target="_blank" rel="noopener">홈페이지</a></li>
+      <li><span>📞 영사콜센터 (24시간)</span><a href="tel:+82232100404"><b>+82-2-3210-0404</b></a></li>
+    </ul>
+  </div>
+  <div class="footer">Made for our family trip · 2026.11 · 정보는 현지 상황에 따라 달라질 수 있어요</div>
+</section>
+
+</main>
+</div>
+
+<!-- bottom dock -->
+<nav class="dock" id="dock">
+  <button class="on" data-p="home"><span class="ic">🏠</span>홈</button>
+  <button data-p="move"><span class="ic">🚇</span>이동</button>
+  <button data-p="food"><span class="ic">🍱</span>맛집</button>
+  <button data-p="talk"><span class="ic">🗣️</span>회화</button>
+  <button data-p="check"><span class="ic">✅</span>체크</button>
+</nav>
+
+<!-- taxi / big card overlay -->
+<div class="ov" id="ov">
+  <button class="close" onclick="closeTaxi()">✕ 닫기</button>
+  <div class="body" id="ovBody"></div>
+  <div class="switch" id="ovSwitch"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== data ===== */
+const ADDR_JP = "〒810-0001 福岡県福岡市中央区天神2丁目6-16 リッチモンドホテル天神西通";
+const HOTEL_MAP = "https://maps.app.goo.gl/qfgNWRtA6cLQXcDm9";
+
+const TAXI = {
+  hotel:{label:"🏨 호텔로",
+    big:"リッチモンドホテル<br>天神西通",
+    addr:"福岡市中央区<br>天神2丁目6-16",
+    ask:"このホテルまで<br>お願いします。",
+    ko:"이 호텔까지 부탁합니다 · 리치몬드 호텔 텐진 니시도리"},
+  airport:{label:"✈️ 공항(국제선)",
+    big:"福岡空港<br>国際線ターミナル",
+    addr:"（国内線ではありません）",
+    ask:"国際線ターミナルまで<br>お願いします。",
+    ko:"후쿠오카공항 국제선 터미널까지 부탁합니다 (국내선 아님)"},
+  unagi:{label:"🍱 요시즈카",
+    big:"吉塚うなぎ屋",
+    addr:"福岡市博多区<br>中洲2丁目8-27",
+    ask:"ここまで<br>お願いします。",
+    ko:"요시즈카 우나기야까지 부탁합니다"},
+  card:{label:"💳 카드 결제?",
+    big:"クレジットカードで<br>払えますか？",
+    addr:"",
+    ask:"",
+    ko:"신용카드로 결제 가능한가요?"},
+  trunk:{label:"🧳 트렁크",
+    big:"トランクを<br>開けてください。",
+    addr:"スーツケースが あります。",
+    ask:"",
+    ko:"트렁크 열어주세요. 캐리어가 있어요."}
+};
+
+const RESTS = [
+  {e:"🍲",n:"모츠나베 (곱창전골)",jp:"もつ鍋 楽天地 天神本店",q:"もつ鍋 楽天地 天神",
+   d:"후쿠오카 대표 향토요리. 간장/된장 국물 선택 → 마지막에 짬뽕면 추가가 국룰.",t:["저녁 추천","5인 테이블 예약 권장"]},
+  {e:"🍜",n:"신신라멘 텐진본점",jp:"博多らーめん ShinShin 天神本店",q:"ShinShin 天神本店",
+   d:"얇은 면 하카타 돈코츠. 늦게까지 영업해 야식으로 좋음. 대기줄 있음.",t:["야식","줄 서는 곳"]},
+  {e:"🐟",n:"원조 멘타이쥬",jp:"元祖博多めんたい重",q:"元祖博多めんたい重",
+   d:"명란을 통째로 올린 찬합 덮밥 + 멘타이 츠케멘. 아침 일찍 열어 오픈런 추천.",t:["아침 추천","나카스 강변"]},
+  {e:"🍔",n:"키와미야 함바그",jp:"極味や 福岡パルコ店",q:"極味や 福岡パルコ店",
+   d:"돌판에 직접 구워먹는 함바그. 텐진 파르코 지하. 대기 길어 번호표 먼저 받기.",t:["점심","대기 김"]},
+];
+
+const PHRASES = [
+  ["5명입니다","5人です。","고닌 데스"],
+  ["카드로 결제할게요","カードでお願いします。","카-도데 오네가이시마스"],
+  ["이거 주세요 (메뉴 가리키며)","これをください。","코레오 쿠다사이"],
+  ["계산해 주세요","お会計お願いします。","오카이케- 오네가이시마스"],
+  ["화장실 어디예요?","トイレはどこですか？","토이레와 도코데스카"],
+  ["엘리베이터 어디예요?","エレベーターはどこですか？","에레베-타-와 도코데스카"],
+  ["짐 맡아주실 수 있나요?","荷物を預かってもらえますか？","니모츠오 아즈캇테 모라에마스카"],
+  ["체크인 할게요 (예약했어요)","チェックインお願いします。予約しています。","첵쿠인 오네가이시마스. 요야쿠 시테이마스"],
+  ["몇 분 기다려요?","何分くらい待ちますか？","난푼 쿠라이 마치마스카"],
+  ["매운 건 빼주세요","辛くしないでください。","카라쿠 시나이데 쿠다사이"],
+  ["영수증 주세요","レシートをください。","레시-토오 쿠다사이"],
+  ["감사합니다!","ありがとうございます！","아리가토- 고자이마스"],
+];
+
+const CHECKS = [
+  "여권 5개 (유효기간 확인)",
+  "Visit Japan Web 입국·세관 QR 등록 (5명 각자 or 동반가족 등록)",
+  "컨택리스(NFC) 카드 1인 1장씩 — 트래블카드 등",
+  "엔화 현금 조금 (소액 식당·택시 대비)",
+  "eSIM / 포켓와이파이",
+  "110V 돼지코 어댑터 (일본은 A타입 11자형 플러그)",
+  "호텔 예약확인서 캡처",
+  "이 가이드 ‘홈 화면에 추가’ (오프라인용)",
+  "캐리어 이름표 · 무게 확인",
+];
+
+/* ===== storage (safe) ===== */
+const store = {
+  get(k,d){try{const v=localStorage.getItem("fuk26:"+k);return v===null?d:JSON.parse(v)}catch(e){return d}},
+  set(k,v){try{localStorage.setItem("fuk26:"+k,JSON.stringify(v))}catch(e){}}
+};
+
+/* ===== render ===== */
+const mapUrl = q => "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+function renderRests(){
+  document.getElementById("restList").innerHTML = RESTS.map((r,i)=>`
+    <div class="card rest"><div class="top"><div><h3>${r.n}</h3><div class="jp muted">${r.jp}</div></div><div class="emoji">${r.e}</div></div>
+    <p class="muted" style="margin:6px 0">${r.d}</p>
+    <div>${r.t.map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+    <div class="linkrow"><a class="lbtn map" href="${mapUrl(r.q)}" target="_blank" rel="noopener">🗺️ 지도</a>
+    <button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="openPlace(${i})">🚕 기사님께 보여주기</button></div></div>`).join("");
+}
+function renderSlots(){
+  const slots = store.get("restSlots",[{},{},{}]);
+  document.getElementById("slotList").innerHTML = slots.map((s,i)=>`
+    <div class="card slot" style="border-style:dashed">
+      <input class="memo" data-i="${i}" data-f="n" placeholder="식당 이름 (예: 이치란 텐진점)" value="${esc(s.n||"")}" style="margin-bottom:6px">
+      <textarea class="memo" data-i="${i}" data-f="d" rows="2" placeholder="메모 · 메뉴 · 가격">${esc(s.d||"")}</textarea>
+      ${s.n?`<div class="linkrow"><a class="lbtn map" href="${mapUrl(s.n+' 福岡')}" target="_blank" rel="noopener">🗺️ 지도에서 찾기</a></div>`:""}
+    </div>`).join("") + `<button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700;width:100%;justify-content:center;padding:12px" onclick="addSlot()">＋ 슬롯 추가</button>`;
+  document.querySelectorAll("#slotList .memo").forEach(el=>el.addEventListener("change",e=>{
+    const arr = store.get("restSlots",[{},{},{}]); const i=+e.target.dataset.i;
+    arr[i] = arr[i]||{}; arr[i][e.target.dataset.f]=e.target.value; store.set("restSlots",arr);
+    if(e.target.dataset.f==="n") renderSlots(); toast("저장됨");
+  }));
+}
+function addSlot(){const a=store.get("restSlots",[{},{},{}]);a.push({});store.set("restSlots",a);renderSlots()}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function renderPhrases(){
+  document.getElementById("phraseList").innerHTML = PHRASES.map((p,i)=>`
+    <div class="card phr" onclick="showPhrase(${i})"><div><div class="ko">${p[0]}</div><div class="ja jp">${p[1]}</div><div class="rd">${p[2]}</div></div><div class="zoom">🔍</div></div>`).join("");
+}
+function renderChecks(){
+  const st = store.get("checks",{});
+  const el = document.getElementById("checkList");
+  el.innerHTML = CHECKS.map((c,i)=>`<label class="chk ${st[i]?"done":""}"><input type="checkbox" data-i="${i}" ${st[i]?"checked":""}><span>${c}</span></label>`).join("");
+  el.querySelectorAll("input").forEach(cb=>cb.addEventListener("change",e=>{
+    const s=store.get("checks",{}); s[e.target.dataset.i]=e.target.checked; store.set("checks",s);
+    e.target.parentElement.classList.toggle("done",e.target.checked);
+  }));
+}
+function bindDaySlots(){
+  const memo = store.get("daySlots",{});
+  document.querySelectorAll("[data-slot]").forEach(card=>{
+    const k=card.dataset.slot, ta=card.querySelector("textarea");
+    ta.value = memo[k]||"";
+    ta.addEventListener("change",()=>{const m=store.get("daySlots",{});m[k]=ta.value;store.set("daySlots",m);toast("저장됨")});
+  });
+}
+
+/* ===== overlay ===== */
+let curKey="hotel";
+function openTaxi(key){curKey=key||"hotel";drawOv();document.getElementById("ov").classList.add("show");keepAwake(true)}
+function drawOv(){
+  const t=TAXI[curKey];
+  document.getElementById("ovBody").innerHTML=`<div class="big jp">${t.big}</div>${t.addr?`<div class="addr jp">${t.addr}</div>`:""}${t.ask?`<div class="ask jp">${t.ask}</div>`:""}<div class="ko">${t.ko}</div>`;
+  document.getElementById("ovSwitch").innerHTML=Object.entries(TAXI).map(([k,v])=>`<button class="${k===curKey?"on":""}" onclick="curKey='${k}';drawOv()">${v.label}</button>`).join("");
+}
+function openPlace(i){
+  const r=RESTS[i];
+  document.getElementById("ovBody").innerHTML=`<div class="big jp">${r.jp}</div><div class="ask jp">ここまで<br>お願いします。</div><div class="ko">${r.n}까지 부탁합니다</div>`;
+  document.getElementById("ovSwitch").innerHTML="";
+  document.getElementById("ov").classList.add("show");keepAwake(true);
+}
+function showPhrase(i){
+  const p=PHRASES[i];
+  document.getElementById("ovBody").innerHTML=`<div class="big jp">${p[1]}</div><div class="ko" style="font-size:16px">${p[0]} · ${p[2]}</div>`;
+  document.getElementById("ovSwitch").innerHTML="";
+  document.getElementById("ov").classList.add("show");
+}
+function closeTaxi(){document.getElementById("ov").classList.remove("show");keepAwake(false)}
+
+/* keep screen on while showing card (where supported) */
+let wakeLock=null;
+async function keepAwake(on){
+  try{
+    if(on && "wakeLock" in navigator){wakeLock=await navigator.wakeLock.request("screen")}
+    else if(!on && wakeLock){await wakeLock.release();wakeLock=null}
+  }catch(e){}
+}
+
+/* ===== quick actions ===== */
+async function copyAddr(){
+  try{await navigator.clipboard.writeText(ADDR_JP);toast("📋 일본어 주소 복사됨")}
+  catch(e){
+    const ta=document.createElement("textarea");ta.value=ADDR_JP;ta.style.position="fixed";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");toast("📋 일본어 주소 복사됨")}catch(_){prompt("길게 눌러 복사하세요",ADDR_JP)}
+    ta.remove();
+  }
+}
+function openMap(){
+  if(!navigator.onLine){toast("오프라인이에요 · 택시 카드를 이용하세요");}
+  window.open(HOTEL_MAP,"_blank","noopener");
+}
+
+/* ===== nav ===== */
+function go(p){
+  document.querySelectorAll(".page").forEach(s=>s.classList.toggle("active",s.id==="p-"+p));
+  document.querySelectorAll("#dock button").forEach(b=>b.classList.toggle("on",b.dataset.p===p));
+  window.scrollTo({top:0,behavior:"smooth"});
+  try{history.replaceState(null,"","#"+p)}catch(e){}
+}
+document.querySelectorAll("#dock button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.p)));
+
+/* ===== misc ===== */
+function toast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1600)}
+function netState(){const n=document.getElementById("net");const on=navigator.onLine;n.textContent=on?"온라인":"오프라인 모드";n.classList.toggle("off",!on)}
+window.addEventListener("online",netState);window.addEventListener("offline",netState);
+function dday(){
+  const now=new Date(), kst=new Date(now.getTime()+(now.getTimezoneOffset()+540)*60000);
+  const d0=new Date(2026,10,7), d=new Date(kst.getFullYear(),kst.getMonth(),kst.getDate());
+  const diff=Math.round((d-d0)/86400000), el=document.getElementById("dday");
+  el.textContent = diff<0?`D${diff}`:diff<=2?`여행 ${diff+1}일차`:"여행 완료 🎉";
+}
+
+/* ===== init ===== */
+renderRests();renderSlots();renderPhrases();renderChecks();bindDaySlots();netState();dday();
+const h=location.hash.replace("#","");if(["home","move","food","talk","check"].includes(h))go(h);
+
+/* ===== service worker ===== */
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js").then(reg=>{
+      document.getElementById("swState").textContent="✅ 오프라인 저장 완료 — 데이터 없이도 열려요.";
+    }).catch(()=>{
+      document.getElementById("swState").textContent="⚠️ 오프라인 저장은 https(GitHub Pages)에서만 동작해요.";
+    });
+  });
+}else{document.getElementById("swState").textContent="이 브라우저는 오프라인 저장을 지원하지 않아요."}
+</script>
+</body>
+</html>
