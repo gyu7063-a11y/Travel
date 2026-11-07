@@ -84,6 +84,16 @@ textarea.memo,input.memo{width:100%;border:1px solid var(--line);border-radius:1
 .plantabs button{border:2px solid var(--line);background:#fff;border-radius:14px;padding:10px 6px;font:inherit;font-size:14px;font-weight:800;color:var(--sub);cursor:pointer}
 .plantabs button.on{border-color:var(--navy);background:var(--navy);color:#fff}
 .tl.plan{display:none}.tl.plan.on{display:block}
+.bform{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bform select,.bform input{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font:inherit;font-size:14px;background:#fffdf8}
+.bform .full{grid-column:1/-1}
+.bbtn{border:0;border-radius:12px;padding:11px;font:inherit;font-weight:800;background:var(--navy);color:#fff;cursor:pointer}
+.bsum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bsum div{background:#f6f3ec;border-radius:12px;padding:10px}
+.bsum b{display:block;font-size:18px}
+.bitem{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.bitem .del{border:0;background:none;color:var(--red);font-size:16px;cursor:pointer}
+.bar{height:8px;border-radius:99px;background:var(--gold)}
 /* steps */
 .steps{counter-reset:s}
 .step{display:flex;gap:12px;align-items:flex-start}
@@ -128,8 +138,8 @@ table.cmp thead th{color:var(--navy);font-size:14px}
 /* bottom dock */
 .dock{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + var(--safe-b));width:calc(100% - 24px);max-width:536px;
   background:rgba(15,47,79,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-radius:22px;display:grid;grid-template-columns:repeat(5,1fr);padding:6px;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.28)}
-.dock button{background:none;border:0;color:#b8c7d6;font:inherit;font-size:11px;font-weight:700;padding:7px 0 5px;border-radius:16px;
+  border-radius:22px;display:grid;grid-template-columns:repeat(6,1fr);padding:6px;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+.dock button{background:none;border:0;color:#b8c7d6;font:inherit;font-size:10.5px;font-weight:700;padding:7px 0 5px;border-radius:16px;
   display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
 .dock button .ic{font-size:21px;line-height:1}
 .dock button.on{background:rgba(255,255,255,.12);color:#fff}
@@ -229,17 +239,17 @@ table.cmp thead th{color:var(--navy);font-size:14px}
         <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🦑 하카타 칸베에 기온테이</b> <span class="jp muted" style="font-size:12px">博多かんべえ 祇園邸</span></div>
           <div class="muted" style="font-size:13px">하카타 쪽 (기온) · 16:00~새벽 1:00 · 2~22명 <b>완전 개별실</b> · 1인 약 5,000엔 · <span class="tag green">첫날 하카타 쇼핑 후 바로</span></div>
-          <div style="font-size:13.5px;margin-top:3px">👉 <b>오징어 활어회(イカ活造り)</b> → 다 먹으면 다리·몸통 남은 부분은 <b>튀김(天ぷら)</b>으로 · <b>고마사바(胡麻サバ)</b> · <b>말고기회(馬刺し)</b> · 마무리로 모츠나베 작은 것</div>
+          <div style="font-size:13.5px;margin-top:3px">👉 <b>⭐ 코스 추천: もつ鍋九州コース 1인 4,500엔</b> (모둠회·말고기회·오징어 튀김·와규 모츠나베·짬뽕 등 9품, 주말 OK) · 원하면 <b>오징어 활어회(イカ活造り)</b> 추가 → 다 먹으면 다리·몸통 남은 부분은 <b>튀김(天ぷら)</b>으로 · <b>고마사바(胡麻サバ)</b> · <b>말고기회(馬刺し)</b> · 마무리로 모츠나베 작은 것</div>
           <div class="linkrow" style="margin-top:6px"><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%81%8B%E3%82%93%E3%81%B9%E3%81%88%20%E7%A5%87%E5%9C%92%E9%82%B8" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
 <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🍲 모츠나베 마에다야 하카타점</b> <span class="jp muted" style="font-size:12px">博多もつ鍋前田屋 博多店</span></div>
           <div class="muted" style="font-size:13px">하카타역 하카타구치 도보 3분 · 17:00~24:00 · 카드 OK · <span class="tag green">첫날 하카타 쇼핑 후 바로</span></div>
-          <div style="font-size:13.5px;margin-top:3px">👉 <b>와규 모츠나베 된장맛(みそ, 1번 인기)</b> <b>5명이면 5인분</b> (인원수만큼 주문이 기본인 곳이 많아요) + 매운맛 원하면 +200엔 · <b>고마사바</b> · <b>자가제 명란(明太子)</b> · <b>곱창 튀김(小腸の天ぷら)</b> · 마무리 <b>짬뽕면(ちゃんぽん)</b></div>
+          <div style="font-size:13.5px;margin-top:3px">👉 ⚠️ 코스는 평일 한정이라 <b>주말엔 단품</b> · <b>와규 모츠나베 된장맛(みそ, 1번 인기)</b> <b>5명이면 5인분</b> (인원수만큼 주문이 기본인 곳이 많아요) + 매운맛 원하면 +200엔 · <b>고마사바</b> · <b>자가제 명란(明太子)</b> · <b>곱창 튀김(小腸の天ぷら)</b> · 마무리 <b>짬뽕면(ちゃんぽん)</b></div>
           <div class="linkrow" style="margin-top:6px"><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%82%82%E3%81%A4%E9%8D%8B%E5%89%8D%E7%94%B0%E5%B1%8B%20%E5%8D%9A%E5%A4%9A%E5%BA%97" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
 <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🍲 모츠나베 마에다야 이마이즈미점</b> <span class="jp muted" style="font-size:12px">博多もつ鍋前田屋 今泉店</span></div>
           <div class="muted" style="font-size:13px">텐진역 도보 3분 · 100석 · 개별실 6곳 · 카드 OK · <span class="tag">둘째 날 텐진 쇼핑 후 걸어서</span></div>
-          <div style="font-size:13.5px;margin-top:3px">👉 하카타점과 같은 메뉴 · <b>된장 모츠나베 5인분</b> + 고마사바 + 명란 + 곱창 튀김 + <b>짬뽕면</b> · ⚠️ 오징어 활어회는 이 지점에 없어요</div>
+          <div style="font-size:13.5px;margin-top:3px">👉 하카타점과 같은 메뉴 · 코스는 평일 한정 → <b>단품: 된장 모츠나베 5인분</b> + 고마사바 + 명란 + 곱창 튀김 + <b>짬뽕면</b> · ⚠️ 오징어 활어회는 이 지점에 없어요</div>
           <div class="linkrow" style="margin-top:6px"><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%82%82%E3%81%A4%E9%8D%8B%E5%89%8D%E7%94%B0%E5%B1%8B%20%E4%BB%8A%E6%B3%89%E5%BA%97" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
 <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🍖 긴샤리 야키니쿠호르몬</b> <span class="jp muted" style="font-size:12px">銀しゃり焼肉 直球ホルモン 今泉店</span></div>
@@ -284,17 +294,17 @@ table.cmp thead th{color:var(--navy);font-size:14px}
         <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🦑 하카타 칸베에 기온테이</b> <span class="jp muted" style="font-size:12px">博多かんべえ 祇園邸</span></div>
           <div class="muted" style="font-size:13px">하카타 쪽 (기온) · 16:00~새벽 1:00 · 2~22명 <b>완전 개별실</b> · 1인 약 5,000엔 · <span class="tag">첫날 하카타 쇼핑 후 바로</span></div>
-          <div style="font-size:13.5px;margin-top:3px">👉 <b>오징어 활어회(イカ活造り)</b> → 다 먹으면 다리·몸통 남은 부분은 <b>튀김(天ぷら)</b>으로 · <b>고마사바(胡麻サバ)</b> · <b>말고기회(馬刺し)</b> · 마무리로 모츠나베 작은 것</div>
+          <div style="font-size:13.5px;margin-top:3px">👉 <b>⭐ 코스 추천: もつ鍋九州コース 1인 4,500엔</b> (모둠회·말고기회·오징어 튀김·와규 모츠나베·짬뽕 등 9품, 주말 OK) · 원하면 <b>오징어 활어회(イカ活造り)</b> 추가 → 다 먹으면 다리·몸통 남은 부분은 <b>튀김(天ぷら)</b>으로 · <b>고마사바(胡麻サバ)</b> · <b>말고기회(馬刺し)</b> · 마무리로 모츠나베 작은 것</div>
           <div class="linkrow" style="margin-top:6px"><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%81%8B%E3%82%93%E3%81%B9%E3%81%88%20%E7%A5%87%E5%9C%92%E9%82%B8" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
 <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🍲 모츠나베 마에다야 하카타점</b> <span class="jp muted" style="font-size:12px">博多もつ鍋前田屋 博多店</span></div>
           <div class="muted" style="font-size:13px">하카타역 하카타구치 도보 3분 · 17:00~24:00 · 카드 OK · <span class="tag">첫날 하카타 쇼핑 후 바로</span></div>
-          <div style="font-size:13.5px;margin-top:3px">👉 <b>와규 모츠나베 된장맛(みそ, 1번 인기)</b> <b>5명이면 5인분</b> (인원수만큼 주문이 기본인 곳이 많아요) + 매운맛 원하면 +200엔 · <b>고마사바</b> · <b>자가제 명란(明太子)</b> · <b>곱창 튀김(小腸の天ぷら)</b> · 마무리 <b>짬뽕면(ちゃんぽん)</b></div>
+          <div style="font-size:13.5px;margin-top:3px">👉 ⚠️ 코스는 평일 한정이라 <b>주말엔 단품</b> · <b>와규 모츠나베 된장맛(みそ, 1번 인기)</b> <b>5명이면 5인분</b> (인원수만큼 주문이 기본인 곳이 많아요) + 매운맛 원하면 +200엔 · <b>고마사바</b> · <b>자가제 명란(明太子)</b> · <b>곱창 튀김(小腸の天ぷら)</b> · 마무리 <b>짬뽕면(ちゃんぽん)</b></div>
           <div class="linkrow" style="margin-top:6px"><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%82%82%E3%81%A4%E9%8D%8B%E5%89%8D%E7%94%B0%E5%B1%8B%20%E5%8D%9A%E5%A4%9A%E5%BA%97" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
 <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🍲 모츠나베 마에다야 이마이즈미점</b> <span class="jp muted" style="font-size:12px">博多もつ鍋前田屋 今泉店</span></div>
           <div class="muted" style="font-size:13px">텐진역 도보 3분 · 100석 · 개별실 6곳 · 카드 OK · <span class="tag green">둘째 날 텐진 쇼핑 후 걸어서</span></div>
-          <div style="font-size:13.5px;margin-top:3px">👉 하카타점과 같은 메뉴 · <b>된장 모츠나베 5인분</b> + 고마사바 + 명란 + 곱창 튀김 + <b>짬뽕면</b> · ⚠️ 오징어 활어회는 이 지점에 없어요</div>
+          <div style="font-size:13.5px;margin-top:3px">👉 하카타점과 같은 메뉴 · 코스는 평일 한정 → <b>단품: 된장 모츠나베 5인분</b> + 고마사바 + 명란 + 곱창 튀김 + <b>짬뽕면</b> · ⚠️ 오징어 활어회는 이 지점에 없어요</div>
           <div class="linkrow" style="margin-top:6px"><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%82%82%E3%81%A4%E9%8D%8B%E5%89%8D%E7%94%B0%E5%B1%8B%20%E4%BB%8A%E6%B3%89%E5%BA%97" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
 <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🍖 긴샤리 야키니쿠호르몬</b> <span class="jp muted" style="font-size:12px">銀しゃり焼肉 直球ホルモン 今泉店</span></div>
@@ -327,17 +337,17 @@ table.cmp thead th{color:var(--navy);font-size:14px}
         <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🦑 하카타 칸베에 기온테이</b> <span class="jp muted" style="font-size:12px">博多かんべえ 祇園邸</span></div>
           <div class="muted" style="font-size:13px">하카타 쪽 (기온) · 16:00~새벽 1:00 · 2~22명 <b>완전 개별실</b> · 1인 약 5,000엔 · <span class="tag">첫날 하카타 쇼핑 후 바로</span></div>
-          <div style="font-size:13.5px;margin-top:3px">👉 <b>오징어 활어회(イカ活造り)</b> → 다 먹으면 다리·몸통 남은 부분은 <b>튀김(天ぷら)</b>으로 · <b>고마사바(胡麻サバ)</b> · <b>말고기회(馬刺し)</b> · 마무리로 모츠나베 작은 것</div>
+          <div style="font-size:13.5px;margin-top:3px">👉 <b>⭐ 코스 추천: もつ鍋九州コース 1인 4,500엔</b> (모둠회·말고기회·오징어 튀김·와규 모츠나베·짬뽕 등 9품, 주말 OK) · 원하면 <b>오징어 활어회(イカ活造り)</b> 추가 → 다 먹으면 다리·몸통 남은 부분은 <b>튀김(天ぷら)</b>으로 · <b>고마사바(胡麻サバ)</b> · <b>말고기회(馬刺し)</b> · 마무리로 모츠나베 작은 것</div>
           <div class="linkrow" style="margin-top:6px"><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%81%8B%E3%82%93%E3%81%B9%E3%81%88%20%E7%A5%87%E5%9C%92%E9%82%B8" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
 <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🍲 모츠나베 마에다야 하카타점</b> <span class="jp muted" style="font-size:12px">博多もつ鍋前田屋 博多店</span></div>
           <div class="muted" style="font-size:13px">하카타역 하카타구치 도보 3분 · 17:00~24:00 · 카드 OK · <span class="tag">첫날 하카타 쇼핑 후 바로</span></div>
-          <div style="font-size:13.5px;margin-top:3px">👉 <b>와규 모츠나베 된장맛(みそ, 1번 인기)</b> <b>5명이면 5인분</b> (인원수만큼 주문이 기본인 곳이 많아요) + 매운맛 원하면 +200엔 · <b>고마사바</b> · <b>자가제 명란(明太子)</b> · <b>곱창 튀김(小腸の天ぷら)</b> · 마무리 <b>짬뽕면(ちゃんぽん)</b></div>
+          <div style="font-size:13.5px;margin-top:3px">👉 ⚠️ 코스는 평일 한정이라 <b>주말엔 단품</b> · <b>와규 모츠나베 된장맛(みそ, 1번 인기)</b> <b>5명이면 5인분</b> (인원수만큼 주문이 기본인 곳이 많아요) + 매운맛 원하면 +200엔 · <b>고마사바</b> · <b>자가제 명란(明太子)</b> · <b>곱창 튀김(小腸の天ぷら)</b> · 마무리 <b>짬뽕면(ちゃんぽん)</b></div>
           <div class="linkrow" style="margin-top:6px"><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%82%82%E3%81%A4%E9%8D%8B%E5%89%8D%E7%94%B0%E5%B1%8B%20%E5%8D%9A%E5%A4%9A%E5%BA%97" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
 <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🍲 모츠나베 마에다야 이마이즈미점</b> <span class="jp muted" style="font-size:12px">博多もつ鍋前田屋 今泉店</span></div>
           <div class="muted" style="font-size:13px">텐진역 도보 3분 · 100석 · 개별실 6곳 · 카드 OK · <span class="tag green">둘째 날 텐진 쇼핑 후 걸어서</span></div>
-          <div style="font-size:13.5px;margin-top:3px">👉 하카타점과 같은 메뉴 · <b>된장 모츠나베 5인분</b> + 고마사바 + 명란 + 곱창 튀김 + <b>짬뽕면</b> · ⚠️ 오징어 활어회는 이 지점에 없어요</div>
+          <div style="font-size:13.5px;margin-top:3px">👉 하카타점과 같은 메뉴 · 코스는 평일 한정 → <b>단품: 된장 모츠나베 5인분</b> + 고마사바 + 명란 + 곱창 튀김 + <b>짬뽕면</b> · ⚠️ 오징어 활어회는 이 지점에 없어요</div>
           <div class="linkrow" style="margin-top:6px"><a class="lbtn" href="https://www.google.com/maps/search/?api=1&query=%E5%8D%9A%E5%A4%9A%E3%82%82%E3%81%A4%E9%8D%8B%E5%89%8D%E7%94%B0%E5%B1%8B%20%E4%BB%8A%E6%B3%89%E5%BA%97" target="_blank" rel="noopener">🗺️ 지도</a></div></div>
 <div style="border-top:1px dashed var(--line);padding:8px 0">
           <div><b>🍖 긴샤리 야키니쿠호르몬</b> <span class="jp muted" style="font-size:12px">銀しゃり焼肉 直球ホルモン 今泉店</span></div>
@@ -600,6 +610,44 @@ table.cmp thead th{color:var(--navy);font-size:14px}
   </div>
 </section>
 
+<!-- ================= BUDGET ================= -->
+<section class="page" id="p-budget">
+  <h2 class="sec">💴 예산 · 지출 기록 <small>이 폰에 저장돼요</small></h2>
+  <div class="card">
+    <div class="bsum">
+      <div><span class="muted">총 지출</span><b id="bTotJ">¥0</b><span class="muted" id="bTotK">₩0</span></div>
+      <div><span class="muted">1인당 (5명)</span><b id="bPerJ">¥0</b><span class="muted" id="bPerK">₩0</span></div>
+    </div>
+    <div class="muted" style="margin-top:8px;font-size:13px">현금 <b id="bCash">¥0</b> · 카드 <b id="bCard">¥0</b></div>
+    <div style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px">
+      <span>환율 100엔 =</span>
+      <input id="bRate" type="number" step="0.01" style="width:90px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit">
+      <span>원</span>
+      <button class="lbtn" style="border:0;font:inherit;font-size:12px;font-weight:700;padding:6px 10px" onclick="loadRate(true)">🔄 실시간 환율</button>
+      <span class="muted" id="bRateInfo" style="font-size:11.5px"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>➕ 지출 추가</h3>
+    <div class="bform">
+      <select id="bDate"><option value="11/7">11/7 (토)</option><option value="11/8">11/8 (일)</option><option value="11/9">11/9 (월)</option><option value="사전">출발 전</option></select>
+      <select id="bCat"><option>🍽️ 식비</option><option>🚇 교통</option><option>🛍️ 쇼핑</option><option>🎟️ 관광·입장</option><option>☕ 카페·간식</option><option>🏨 숙박</option><option>📦 기타</option></select>
+      <input id="bMemo" class="full" placeholder="메모 (예: 요시즈카 우나기야)">
+      <input id="bAmt" type="number" inputmode="numeric" placeholder="금액 (엔)">
+      <select id="bPay"><option>💳 카드</option><option>💴 현금</option></select>
+      <button class="bbtn full" onclick="addExp()">추가하기</button>
+    </div>
+  </div>
+
+  <div class="card"><h3>📊 카테고리별</h3><div id="bByCat" class="muted">아직 기록이 없어요</div></div>
+  <div class="card"><h3>📅 날짜별</h3><div id="bByDate" class="muted">아직 기록이 없어요</div></div>
+  <div class="card"><h3>🧾 전체 내역</h3><div id="bList" class="muted">아직 기록이 없어요</div>
+    <div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="copyBudget()">📋 요약 복사 (카톡 공유용)</button></div>
+  </div>
+  <p class="muted" style="margin:0 4px;font-size:12.5px">💡 기록은 이 폰에만 저장돼요. 가족과 나누려면 '요약 복사'로 카톡에 붙여넣으세요.</p>
+</section>
+
 <!-- ================= CHECK ================= -->
 <section class="page" id="p-check">
   <h2 class="sec">✅ 출발 전 체크리스트</h2>
@@ -637,6 +685,7 @@ table.cmp thead th{color:var(--navy);font-size:14px}
   <button data-p="move"><span class="ic">🚇</span>이동</button>
   <button data-p="food"><span class="ic">🍱</span>맛집</button>
   <button data-p="shop"><span class="ic">🛍️</span>쇼핑</button>
+  <button data-p="budget"><span class="ic">💴</span>예산</button>
   <button data-p="check"><span class="ic">✅</span>체크</button>
 </nav>
 
@@ -700,11 +749,11 @@ const TAXI = {
 const RESTS = [
   {e:"🐟",n:"마코토 (食事と酒処 真)",m:[["고등어 한 마리 구이 정식 (밥 리필 무료)", "秋サバ一枚焼定食", "약 1,000~1,300엔"]],est:"1인 약 1,200엔",jp:"食事と酒処 真（まこと）",q:"食事と酒処 真 天神",
    d:"고등어 한 마리를 통째로 굽는 秋サバ一枚焼 정식 한 가지. 밥 리필 무료. 11:00 오픈, 점심 줄 김. 텐진 1-15-3 · ☎ 092-712-0201",t:["둘째 날 점심","일요일 영업 확인"]},
-  {e:"🦑",n:"하카타 칸베에 기온테이",m:[["오징어 활어회 (1마리, 2~3명이 나눠 먹는 양)", "イカの活き造り", "시가 약 3,000~5,000엔"], ["남은 다리·몸통 튀김", "ゲソ天ぷら / 天ぷら", "활어회 주문 시 조리 (추가 요금 여부 확인)"], ["고마사바 (참깨 소스 고등어회)", "胡麻サバ / ゴマサバ", "약 1,000~1,500엔"], ["말고기회", "馬刺し", "약 1,500~2,500엔"], ["모츠나베 (마무리, 1인분부터)", "もつ鍋", "1인분 약 1,500~2,000엔"]],est:"1인 약 5,000엔 (음료 포함)",jp:"博多かんべえ 祇園邸",q:"博多かんべえ 祇園邸",
+  {e:"🦑",n:"하카타 칸베에 기온테이",m:[["⭐ 모츠나베 규슈 코스 (9품: 무침·모듬회·말고기회·샐러드·오징어 튀김/소금구이·닭튀김·와규 모츠나베·짬뽕/죽·디저트, 120분)","もつ鍋九州コース","1인 4,500엔 (주말 OK)"],["오징어 활어회 (코스에 추가 가능 여부 문의)", "イカの活き造り", "시가 약 3,000~5,000엔"], ["남은 다리·몸통 튀김", "ゲソ天ぷら / 天ぷら", "활어회 주문 시 조리 (추가 요금 여부 확인)"], ["고마사바 (참깨 소스 고등어회)", "胡麻サバ / ゴマサバ", "약 1,000~1,500엔"], ["말고기회", "馬刺し", "약 1,500~2,500엔"], ["모츠나베 (마무리, 1인분부터)", "もつ鍋", "1인분 약 1,500~2,000엔"]],est:"코스 1인 4,500엔 + 음료 / 단품 1인 약 5,000엔",jp:"博多かんべえ 祇園邸",q:"博多かんべえ 祇園邸",
    d:"👉 추천: 오징어 활어회(남은 건 튀김으로) · 고마사바 · 말고기회 · 살아있는 오징어 활어회(イカ活造り), 말고기회, 고마사바, 모츠나베까지. 2~22명 완전 개별실, 한국어 메뉴. 16:00~새벽 1:00 · 1인 약 5,000엔.",t:["저녁 후보","개별실 예약 필수"]},
   {e:"🍖",n:"긴샤리 야키니쿠호르몬",m:[["기본 코스 (고기 6종 + 솥밥 무한리필 + 사가규 카레)", "にこにこコース", "요리만 약 3,500엔 / 음료무제한 약 5,000엔"], ["추천 코스 (고기 7종, 상 갈비 포함)", "おすすめコース", "요리만 약 4,500엔 / 음료무제한 약 6,000엔"], ["호화 코스 (특상 갈비 포함)", "直球豪華コース", "요리만 약 5,500엔 / 음료무제한 약 7,000엔"]],est:"1인 약 4,500~7,000엔",jp:"銀しゃり焼肉 直球ホルモン 今泉店",q:"焼肉 銀しゃり 直球ホルモン 今泉店",
    d:"👉 추천: 중간 코스(고기 6~7종 + 솥밥 무한리필 + 사가규 카레, 요리만 약 4,500엔) · 규슈산 와규·호르몬 야키니쿠 + 솥밥(銀しゃり) 무한리필 코스. 호텔에서 걸어갈 수 있는 이마이즈미. 영업시간은 구글맵에서 확인.",t:["저녁 후보","예약 추천"]},
-  {e:"🍲",n:"모츠나베 마에다야 (이마이즈미점 / 하카타점)",m:[["와규 모츠나베 된장맛 (1인분)", "もつ鍋 みそ味", "1인분 약 1,800~2,200엔"], ["간장맛 / 매운맛(+200엔)", "しょうゆ味 / 辛もつ鍋", "약 같은 가격"], ["고마사바", "ゴマさば", "약 1,000~1,500엔"], ["자가제 명란", "自家製明太子", "약 800~1,200엔"], ["곱창 튀김", "小腸の天ぷら", "약 700~900엔"], ["마무리 짬뽕면", "ちゃんぽん麺", "약 400~500엔"]],est:"1인 약 4,000~5,000엔 (음료 포함)",jp:"博多もつ鍋前田屋",q:"博多もつ鍋前田屋 今泉店",
+  {e:"🍲",n:"모츠나베 마에다야 (이마이즈미점 / 하카타점)",m:[["⚠️ 음료무제한 코스(5,280~6,780엔)는 평일 한정 → 토·일은 아래 단품으로","平日限定コース","-"],["⭐ 5명 추천 조합: 모츠나베 5인분 + 고마사바 2 + 명란 1 + 곱창튀김 1 + 짬뽕면 2","単品で注文","합계 약 17,000~20,000엔 (음료 별도)"],["와규 모츠나베 된장맛 (1인분)", "もつ鍋 みそ味", "1인분 약 1,800~2,200엔"], ["간장맛 / 매운맛(+200엔)", "しょうゆ味 / 辛もつ鍋", "약 같은 가격"], ["고마사바", "ゴマさば", "약 1,000~1,500엔"], ["자가제 명란", "自家製明太子", "약 800~1,200엔"], ["곱창 튀김", "小腸の天ぷら", "약 700~900엔"], ["마무리 짬뽕면", "ちゃんぽん麺", "약 400~500엔"]],est:"1인 약 4,000~5,000엔 (음료 포함)",jp:"博多もつ鍋前田屋",q:"博多もつ鍋前田屋 今泉店",
    d:"👉 추천: 된장 모츠나베 <b>5인분</b>(인원수만큼 주문하는 가게가 많아요) · 고마사바 · 자가제 명란 · 곱창 튀김 · 마무리 짬뽕면. 국산 와규 곱창만 쓰는 인기 모츠나베 전문점. 된장/간장/매운맛 중 선택 → 마지막에 짬뽕면. 고마사바·명란도 인기. 저녁 17:00~. <b>둘째 날은 텐진에서 끝나니 이마이즈미점(텐진역 3분, 100석·개별실)</b>이 편하고, 하카타점은 하카타역 하카타구치 도보 3분. 카드 가능.",t:["저녁 후보","예약 권장"]},
   {e:"🍜",n:"신신라멘 텐진본점",m:[["하카타 라멘", "博多らーめん", "약 800~1,000엔"], ["볶음밥 (반)", "焼きめし", "약 500~600엔"]],est:"1인 약 1,000엔",jp:"博多らーめん ShinShin 天神本店",q:"ShinShin 天神本店",
    d:"얇은 면 하카타 돈코츠. 늦게까지 영업해 야식으로 좋음. 대기줄 있음.",t:["야식","줄 서는 곳"]},
@@ -877,9 +926,56 @@ async function loadWeather(){
 }
 loadWeather(); setInterval(loadWeather,30*60*1000); window.addEventListener("online",loadWeather);
 
+/* ===== budget ===== */
+const PEOPLE=5;
+const fmtJ=n=>"¥"+Math.round(n).toLocaleString("ko-KR");
+const fmtK=n=>"₩"+Math.round(n).toLocaleString("ko-KR");
+function krw(j){const r=parseFloat(document.getElementById("bRate").value);return j*((isFinite(r)&&r>0?r:950)/100)}
+function addExp(){
+  const amt=parseInt(document.getElementById("bAmt").value,10);
+  if(!amt||amt<=0){toast("금액을 입력하세요");return}
+  const e={id:Date.now(),d:bDate.value,c:bCat.value,m:bMemo.value.trim(),a:amt,p:bPay.value};
+  const list=store.get("exp",[]);list.push(e);store.set("exp",list);
+  bAmt.value="";bMemo.value="";renderBudget();toast("추가됨 "+fmtJ(amt));
+}
+function delExp(id){const list=store.get("exp",[]).filter(x=>x.id!==id);store.set("exp",list);renderBudget()}
+function group(list,key){const g={};list.forEach(x=>g[x[key]]=(g[x[key]]||0)+x.a);return g}
+function bars(g){
+  const ent=Object.entries(g).sort((a,b)=>b[1]-a[1]);const max=Math.max(...ent.map(x=>x[1]),1);
+  return ent.map(([k,v])=>`<div class="bitem" style="display:block"><div style="display:flex;justify-content:space-between"><span>${esc(k)}</span><span><b>${fmtJ(v)}</b> <span class="muted">${fmtK(krw(v))}</span></span></div><div class="bar" style="width:${Math.max(4,v/max*100)}%"></div></div>`).join("");
+}
+function renderBudget(){
+  const list=store.get("exp",[]);const tot=list.reduce((a,x)=>a+x.a,0);
+  bTotJ.textContent=fmtJ(tot);bTotK.textContent=fmtK(krw(tot));
+  bPerJ.textContent=fmtJ(tot/PEOPLE);bPerK.textContent=fmtK(krw(tot/PEOPLE));
+  bCash.textContent=fmtJ(list.filter(x=>x.p.includes("현금")).reduce((a,x)=>a+x.a,0));
+  bCard.textContent=fmtJ(list.filter(x=>x.p.includes("카드")).reduce((a,x)=>a+x.a,0));
+  if(!list.length){bByCat.innerHTML=bByDate.innerHTML=bList.innerHTML="아직 기록이 없어요";return}
+  bByCat.innerHTML=bars(group(list,"c"));
+  const order=["사전","11/7","11/8","11/9"];const gd=group(list,"d");
+  bByDate.innerHTML=order.filter(d=>gd[d]).map(d=>`<div class="bitem"><span>${d==="사전"?"출발 전":d}</span><span><b>${fmtJ(gd[d])}</b> <span class="muted">${fmtK(krw(gd[d]))}</span></span></div>`).join("");
+  bList.innerHTML=[...list].sort((a,b)=>order.indexOf(a.d)-order.indexOf(b.d)||a.id-b.id).map(x=>`<div class="bitem"><span><span class="tag">${x.d}</span> ${x.c.split(" ")[0]} ${esc(x.m||x.c.split(" ")[1])} <span class="muted" style="font-size:12px">${x.p.split(" ")[0]}</span></span><span style="white-space:nowrap"><b>${fmtJ(x.a)}</b> <button class="del" onclick="delExp(${x.id})">✕</button></span></div>`).join("");
+}
+async function loadRate(manual){
+  const saved=store.get("rate",null);
+  if(saved&&!manual){bRate.value=saved.v;bRateInfo.textContent=saved.t?`(${saved.t} 기준)`:"(직접 입력)"}
+  if(!navigator.onLine){if(manual)toast("오프라인이에요");return}
+  try{
+    const r=await fetch("https://open.er-api.com/v6/latest/JPY",{cache:"no-store"});const d=await r.json();
+    const v=Math.round(d.rates.KRW*100*100)/100;const now=new Date();
+    const t=`${now.getMonth()+1}/${now.getDate()} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
+    store.set("rate",{v,t});bRate.value=v;bRateInfo.textContent=`(실시간 · ${t} 기준)`;renderBudget();if(manual)toast("환율 업데이트");
+  }catch(e){if(!bRate.value){bRate.value=950;bRateInfo.textContent="(기본값 · 직접 수정 가능)"}if(manual)toast("환율을 못 불러왔어요")}
+}
+function copyBudget(){
+  const list=store.get("exp",[]);const tot=list.reduce((a,x)=>a+x.a,0);const gc=group(list,"c");
+  const txt=`[후쿠오카 여행 지출]\n총 ${fmtJ(tot)} (${fmtK(krw(tot))})\n1인당 ${fmtJ(tot/PEOPLE)} (${fmtK(krw(tot/PEOPLE))})\n`+Object.entries(gc).map(([k,v])=>`${k} ${fmtJ(v)}`).join("\n");
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("요약 복사됨")).catch(()=>prompt("복사하세요",txt));
+}
+
 /* ===== init ===== */
-renderRests();renderSlots();renderChecks();bindDaySlots();netState();dday();
-const h=location.hash.replace("#","");if(["home","move","food","shop","check"].includes(h))go(h);
+renderRests();renderSlots();(function(){const bR=document.getElementById("bRate");bR.addEventListener("change",()=>{store.set("rate",{v:parseFloat(bR.value),t:""});bRateInfo.textContent="(직접 입력)";renderBudget()});loadRate(false).then(renderBudget);renderBudget();})();renderChecks();bindDaySlots();netState();dday();
+const h=location.hash.replace("#","");if(["home","move","food","shop","budget","check"].includes(h))go(h);
 
 /* ===== service worker ===== */
 if("serviceWorker" in navigator){
