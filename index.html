@@ -577,15 +577,16 @@ table.cmp thead th{color:var(--navy);font-size:14px}
     </div>
   </div>
 
-  <div class="card">
-    <h3>➕ 지출 추가</h3>
+  <div class="card" id="bFormCard">
+    <h3 id="bFormTitle">➕ 지출 추가</h3>
     <div class="bform">
       <select id="bDate"><option value="11/7">11/7 (토)</option><option value="11/8">11/8 (일)</option><option value="11/9">11/9 (월)</option><option value="사전">출발 전</option></select>
       <select id="bCat"><option>🍽️ 식비</option><option>🚇 교통</option><option>🛍️ 쇼핑</option><option>🎟️ 관광·입장</option><option>☕ 카페·간식</option><option>🏨 숙박</option><option>📦 기타</option></select>
       <input id="bMemo" class="full" placeholder="메모 (예: 요시즈카 우나기야)">
       <input id="bAmt" type="number" inputmode="numeric" placeholder="금액 (엔)">
       <select id="bPay"><option>💳 카드</option><option>💴 현금</option></select>
-      <button class="bbtn full" onclick="addExp()">추가하기</button>
+      <button class="bbtn full" id="bSave" onclick="addExp()">추가하기</button>
+      <button class="lbtn full" id="bCancel" style="display:none;border:0;font:inherit;font-size:13px;font-weight:700;justify-content:center" onclick="cancelEdit()">편집 취소</button>
     </div>
   </div>
 
@@ -883,11 +884,24 @@ function krw(j){const r=parseFloat(document.getElementById("bRate").value);retur
 function addExp(){
   const amt=parseInt(document.getElementById("bAmt").value,10);
   if(!amt||amt<=0){toast("금액을 입력하세요");return}
-  const e={id:Date.now(),d:bDate.value,c:bCat.value,m:bMemo.value.trim(),a:amt,p:bPay.value};
-  const list=store.get("exp",[]);list.push(e);store.set("exp",list);
+  const list=store.get("exp",[]);
+  if(editId){
+    const x=list.find(v=>v.id===editId);
+    if(x){x.d=bDate.value;x.c=bCat.value;x.m=bMemo.value.trim();x.a=amt;x.p=bPay.value}
+    store.set("exp",list);cancelEdit();renderBudget();toast("수정됨 "+fmtJ(amt));return;
+  }
+  list.push({id:Date.now(),d:bDate.value,c:bCat.value,m:bMemo.value.trim(),a:amt,p:bPay.value});store.set("exp",list);
   bAmt.value="";bMemo.value="";renderBudget();toast("추가됨 "+fmtJ(amt));
 }
-function delExp(id){const list=store.get("exp",[]).filter(x=>x.id!==id);store.set("exp",list);renderBudget()}
+let editId=null;
+function editExp(id){
+  const x=store.get("exp",[]).find(v=>v.id===id);if(!x)return;
+  editId=id;bDate.value=x.d;bCat.value=x.c;bMemo.value=x.m||"";bAmt.value=x.a;bPay.value=x.p;
+  bSave.textContent="수정 저장";bCancel.style.display="flex";bFormTitle.textContent="✏️ 지출 수정";
+  bFormCard.scrollIntoView({behavior:"smooth",block:"center"});renderBudget();
+}
+function cancelEdit(){editId=null;bAmt.value="";bMemo.value="";bSave.textContent="추가하기";bCancel.style.display="none";bFormTitle.textContent="➕ 지출 추가";renderBudget()}
+function delExp(id){if(!confirm("이 항목을 삭제할까요?"))return;if(editId===id)cancelEdit();const list=store.get("exp",[]).filter(x=>x.id!==id);store.set("exp",list);renderBudget()}
 function group(list,key){const g={};list.forEach(x=>g[x[key]]=(g[x[key]]||0)+x.a);return g}
 function bars(g){
   const ent=Object.entries(g).sort((a,b)=>b[1]-a[1]);const max=Math.max(...ent.map(x=>x[1]),1);
@@ -903,7 +917,7 @@ function renderBudget(){
   bByCat.innerHTML=bars(group(list,"c"));
   const order=["사전","11/7","11/8","11/9"];const gd=group(list,"d");
   bByDate.innerHTML=order.filter(d=>gd[d]).map(d=>`<div class="bitem"><span>${d==="사전"?"출발 전":d}</span><span><b>${fmtJ(gd[d])}</b> <span class="muted">${fmtK(krw(gd[d]))}</span></span></div>`).join("");
-  bList.innerHTML=[...list].sort((a,b)=>order.indexOf(a.d)-order.indexOf(b.d)||a.id-b.id).map(x=>`<div class="bitem"><span><span class="tag">${x.d}</span> ${x.c.split(" ")[0]} ${esc(x.m||x.c.split(" ")[1])} <span class="muted" style="font-size:12px">${x.p.split(" ")[0]}</span></span><span style="white-space:nowrap"><b>${fmtJ(x.a)}</b> <button class="del" onclick="delExp(${x.id})">✕</button></span></div>`).join("");
+  bList.innerHTML=[...list].sort((a,b)=>order.indexOf(a.d)-order.indexOf(b.d)||a.id-b.id).map(x=>`<div class="bitem" style="${x.id===editId?"background:#fff6df;border-radius:8px;padding-left:6px":""}"><span><span class="tag">${x.d}</span> ${x.c.split(" ")[0]} ${esc(x.m||x.c.split(" ")[1])} <span class="muted" style="font-size:12px">${x.p.split(" ")[0]}</span></span><span style="white-space:nowrap"><b>${fmtJ(x.a)}</b> <button class="del" style="color:var(--navy2)" onclick="editExp(${x.id})" aria-label="편집">✏️</button><button class="del" onclick="delExp(${x.id})" aria-label="삭제">✕</button></span></div>`).join("");
 }
 async function loadRate(manual){
   const saved=store.get("rate",null);
