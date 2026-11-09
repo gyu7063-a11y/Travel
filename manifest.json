@@ -1,10 +1,9 @@
 {
-  "name": "후쿠오카 가족여행 가이드 2026",
-  "short_name": "후쿠오카",
+  "name": "내 여행 기록",
+  "short_name": "내 여행",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#f4f1ea",
   "theme_color": "#0f2f4f",
   "lang": "ko",
