@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#0f2f4f">
+<title>여행 가이드</title>
+<link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<style>
+
+:root{
+  --navy:#0f2f4f; --navy2:#1c4a73; --red:#c8402f; --gold:#e8a33d;
+  --bg:#f4f1ea; --card:#ffffff; --ink:#1d2329; --sub:#5d6670; --line:#e3ddd1;
+  --ok:#2f8f5b; --radius:18px;
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR","Hiragino Sans","Noto Sans JP",sans-serif;
+  font-size:16px;line-height:1.55}
+a{color:var(--navy2)}
+.app{max-width:560px;margin:0 auto;min-height:100vh;padding-bottom:calc(92px + var(--safe-b))}
+
+/* ---------- header ---------- */
+.hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;
+  padding:calc(18px + var(--safe-t)) 18px 20px;border-radius:0 0 26px 26px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,163,61,.35),transparent 70%)}
+.hero .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.hero h1{margin:6px 0 2px;font-size:23px;letter-spacing:-.3px}
+.hero .meta{font-size:13.5px;opacity:.85}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.14)}
+.pill.dot::before{content:"";width:7px;height:7px;border-radius:50%;background:#7be3a3}
+.pill.off::before{background:#ff9a8a}
+.dday{font-weight:800;font-size:13px;background:var(--gold);color:#2a1a00;padding:4px 10px;border-radius:99px}
+
+/* quick actions */
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 0;position:relative;z-index:1}
+.qbtn{border:0;border-radius:16px;padding:12px 6px;background:#fff;color:var(--navy);font-weight:700;font-size:13px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(0,0,0,.18);cursor:pointer;font-family:inherit}
+.qbtn .ic{font-size:24px;line-height:1}
+.qbtn:active{transform:scale(.96)}
+.qbtn.primary{background:var(--gold);color:#2a1a00}
+
+/* ---------- sections ---------- */
+main{padding:6px 14px}
+.page{display:none;animation:fade .25s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2.sec{font-size:19px;margin:22px 4px 10px;display:flex;align-items:center;gap:8px}
+h2.sec small{font-size:12px;color:var(--sub);font-weight:500}
+.card{background:var(--card);border-radius:var(--radius);padding:16px;margin:0 0 12px;box-shadow:0 1px 0 var(--line),0 6px 18px rgba(15,47,79,.06)}
+.card h3{margin:0 0 6px;font-size:16.5px}
+.muted{color:var(--sub);font-size:13.5px}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:99px;background:#eef3f8;color:var(--navy2);margin:0 4px 4px 0}
+.tag.red{background:#fbe9e6;color:var(--red)}
+.tag.gold{background:#fdf1dc;color:#8a5a00}
+.tag.green{background:#e4f4ea;color:var(--ok)}
+.notice{border-left:4px solid var(--gold);background:#fffaf0;padding:10px 12px;border-radius:10px;font-size:13.5px;margin:10px 0}
+.notice.red{border-color:var(--red);background:#fff4f2}
+.jp{font-family:"Hiragino Sans","Noto Sans JP","Yu Gothic",sans-serif}
+
+/* timeline */
+.day{margin-bottom:14px}
+.dayhead{display:flex;align-items:baseline;gap:8px;margin:0 4px 8px}
+.dayhead b{font-size:17px;white-space:nowrap}
+.tl{position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.ti{position:relative;margin-bottom:10px}
+.ti::before{content:"";position:absolute;left:-20px;top:18px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--navy2)}
+.ti.hl::before{border-color:var(--red)}
+.ti .card{margin:0}
+.ti .time{font-size:12.5px;font-weight:800;color:var(--navy2)}
+.slot{border:2px dashed var(--line);background:transparent;box-shadow:none;color:var(--sub)}
+textarea.memo,input.memo{width:100%;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;background:#fffdf8;resize:vertical}
+
+.plantabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+.plantabs button{border:2px solid var(--line);background:#fff;border-radius:14px;padding:10px 6px;font:inherit;font-size:14px;font-weight:800;color:var(--sub);cursor:pointer}
+.plantabs button.on{border-color:var(--navy);background:var(--navy);color:#fff}
+.tl.plan{display:none}.tl.plan.on{display:block}
+.bform{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bform select,.bform input{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 10px;font:inherit;font-size:14px;background:#fffdf8}
+.bform .full{grid-column:1/-1}
+.bbtn{border:0;border-radius:12px;padding:11px;font:inherit;font-weight:800;background:var(--navy);color:#fff;cursor:pointer}
+.bsum{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.bsum div{background:#f6f3ec;border-radius:12px;padding:10px}
+.bsum b{display:block;font-size:18px}
+.bitem{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.bitem .del{border:0;background:none;color:var(--red);font-size:16px;cursor:pointer}
+.bar{height:8px;border-radius:99px;background:var(--gold)}
+/* steps */
+.steps{counter-reset:s}
+.step{display:flex;gap:12px;align-items:flex-start}
+.step .n{flex:0 0 34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;display:grid;place-items:center}
+.step .n.gold{background:var(--gold);color:#2a1a00}
+.step p{margin:4px 0 0}
+.linkrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.lbtn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:13px;font-weight:700;
+  padding:8px 12px;border-radius:12px;background:#eef3f8;color:var(--navy)}
+.lbtn.yt{background:#fde8e6;color:#b3261e}
+.lbtn.nv{background:#e5f6ea;color:#127a3a}
+.lbtn.ts{background:#fff0e3;color:#a64b00}
+.lbtn.map{background:var(--navy);color:#fff}
+
+/* compare table */
+table.cmp{width:100%;border-collapse:collapse;font-size:13.5px}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+table.cmp th{color:var(--sub);font-weight:600;width:24%}
+table.cmp thead th{color:var(--navy);font-size:14px}
+
+/* restaurant */
+.rest .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.rest .emoji{font-size:30px;line-height:1}
+.price{font-weight:800;color:var(--red)}
+.menu{margin:8px 0 0;padding:0;list-style:none}
+.menu li{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.menu li:last-child{border:0}
+
+/* phrases */
+.phr{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer}
+.phr .ko{font-size:13px;color:var(--sub)}
+.phr .ja{font-size:17px;font-weight:700}
+.phr .rd{font-size:12.5px;color:var(--navy2)}
+.phr .zoom{flex:0 0 auto;font-size:20px;opacity:.6}
+
+/* checklist */
+.chk{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line)}
+.chk:last-child{border:0}
+.chk input{width:22px;height:22px;accent-color:var(--ok);flex:0 0 auto;margin-top:1px}
+.chk.done span{text-decoration:line-through;color:var(--sub)}
+
+/* bottom dock */
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + var(--safe-b));width:calc(100% - 24px);max-width:536px;
+  background:rgba(15,47,79,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-radius:22px;display:grid;grid-template-columns:repeat(6,1fr);padding:6px;z-index:50;box-shadow:0 10px 30px rgba(0,0,0,.28)}
+.dock button{background:none;border:0;color:#b8c7d6;font:inherit;font-size:10.5px;font-weight:700;padding:7px 0 5px;border-radius:16px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.dock button .ic{font-size:21px;line-height:1}
+.dock button.on{background:rgba(255,255,255,.12);color:#fff}
+
+/* overlay (taxi card) */
+.ov{position:fixed;inset:0;background:#fff;z-index:100;display:none;flex-direction:column;padding:calc(18px + var(--safe-t)) 18px calc(18px + var(--safe-b))}
+.ov.show{display:flex}
+.ov .close{align-self:flex-end;border:0;background:#eee;border-radius:99px;padding:10px 16px;font:inherit;font-weight:700;font-size:15px}
+.ov .body{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;gap:14px}
+.ov .big{font-size:clamp(30px,9vw,46px);font-weight:900;line-height:1.3;color:#000}
+.ov .addr{font-size:clamp(22px,6.5vw,30px);font-weight:800;line-height:1.45;color:#111}
+.ov .ask{font-size:clamp(22px,6vw,28px);font-weight:700;color:var(--red)}
+.ov .ko{font-size:14px;color:var(--sub)}
+.ov .switch{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.ov .switch button{border:1px solid var(--line);background:#fafafa;border-radius:99px;padding:8px 12px;font:inherit;font-size:13px;font-weight:700}
+.ov .switch button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.ov.rot .body{transform:rotate(90deg);transform-origin:center}
+
+.toast{position:fixed;left:50%;bottom:calc(100px + var(--safe-b));transform:translateX(-50%) translateY(20px);opacity:0;
+  background:#111;color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;transition:.25s;z-index:200;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.footer{font-size:12px;color:var(--sub);text-align:center;margin:24px 0 8px}
+
+</style></head><body>
+<div class="app">
+<header class="hero">
+  <div class="row">
+    <span style="display:flex;gap:6px"><a class="pill" href="../" style="color:#fff;text-decoration:none">← 내 여행</a><span class="pill dot" id="net">온라인</span></span>
+    <span class="dday" id="dday"></span>
+  </div>
+  <h1 id="tTitle"></h1>
+  <div class="meta" id="tMeta"></div>
+  <div class="quick">
+    <button class="qbtn primary" onclick="openCard()"><span class="ic">🚕</span>택시 카드</button>
+    <button class="qbtn" onclick="copyAddr()"><span class="ic">📋</span>현지 주소 복사</button>
+    <button class="qbtn" onclick="window.open(CONFIG.hotel.map,'_blank','noopener')"><span class="ic">🗺️</span>숙소 지도</button>
+  </div>
+</header>
+<main>
+<section class="page active" id="p-home">
+  <h2 class="sec">🏨 숙소</h2><div class="card" id="hotelCard"></div>
+  <div id="flightWrap"></div>
+  <h2 class="sec">🗓️ 일정 <small>메모는 폰에 자동 저장</small></h2>
+  <div id="days"></div>
+</section>
+<section class="page" id="p-move"><h2 class="sec">🚇 이동</h2><div id="moveList"></div></section>
+<section class="page" id="p-food"><h2 class="sec">🍽️ 맛집</h2><div id="foodList"></div></section>
+<section class="page" id="p-shop"><h2 class="sec">🛍️ 쇼핑</h2><div id="shopList"></div></section>
+<section class="page" id="p-budget">
+  <h2 class="sec">💴 예산 · 지출 기록 <small>이 기기에 저장</small></h2>
+  <div class="card">
+    <div class="bsum">
+      <div><span class="muted">총 지출</span><b id="bTotJ">0</b><span class="muted" id="bTotK">₩0</span></div>
+      <div><span class="muted" id="bPerLabel">1인당</span><b id="bPerJ">0</b><span class="muted" id="bPerK">₩0</span></div>
+    </div>
+    <div class="muted" style="margin-top:8px;font-size:13px">현금 <b id="bCash">0</b> · 카드 <b id="bCard">0</b></div>
+    <div style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px">
+      <span id="bRateLabel">환율 100 =</span>
+      <input id="bRate" type="number" step="0.01" style="width:90px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit">
+      <span>원</span>
+      <button class="lbtn" style="border:0;font:inherit;font-size:12px;font-weight:700;padding:6px 10px" onclick="loadRate(true)">🔄 실시간 환율</button>
+      <span class="muted" id="bRateInfo" style="font-size:11.5px"></span>
+    </div>
+  </div>
+  <div class="card" id="bFormCard">
+    <h3 id="bFormTitle">➕ 지출 추가</h3>
+    <div class="bform">
+      <select id="bDate"></select>
+      <select id="bCat"><option>🍽️ 식비</option><option>🚇 교통</option><option>🛍️ 쇼핑</option><option>🎟️ 관광·입장</option><option>☕ 카페·간식</option><option>🏨 숙박</option><option>📦 기타</option></select>
+      <input id="bMemo" class="full" placeholder="메모">
+      <input id="bAmt" type="number" inputmode="decimal" placeholder="금액">
+      <select id="bPay"><option>💳 카드</option><option>💴 현금</option></select>
+      <button class="bbtn full" id="bSave" onclick="addExp()">추가하기</button>
+      <button class="lbtn full" id="bCancel" style="display:none;border:0;font:inherit;font-size:13px;font-weight:700;justify-content:center" onclick="cancelEdit()">편집 취소</button>
+    </div>
+  </div>
+  <div class="card"><h3>📊 카테고리별</h3><div id="bByCat" class="muted">아직 기록이 없어요</div></div>
+  <div class="card"><h3>📅 날짜별</h3><div id="bByDate" class="muted">아직 기록이 없어요</div></div>
+  <div class="card"><h3>🧾 전체 내역</h3><div id="bList" class="muted">아직 기록이 없어요</div>
+    <div class="linkrow"><button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="copyBudget()">📋 요약 복사 (카톡용)</button></div></div>
+  <div class="card">
+    <h3>📤 상세 내역 보내기</h3>
+    <div class="linkrow">
+      <button class="lbtn map" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="downloadCSV()">📄 엑셀(CSV) 저장</button>
+      <button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="shareCSV()">📤 파일 공유</button>
+      <button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="mailBudget()">✉️ 이메일</button>
+    </div>
+  </div>
+  <div class="card">
+    <h3>💻 폰 ↔ PC 기록 옮기기</h3>
+    <p class="muted" style="font-size:13px;margin:4px 0 8px">폰에서 🔗 링크 만들기 → 카톡 '나에게 보내기' → PC에서 링크 열기 → 가져오기</p>
+    <div class="linkrow">
+      <button class="lbtn map" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="makeMoveLink()">🔗 옮기기 링크</button>
+      <button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="exportJSON()">💾 백업 저장</button>
+      <button class="lbtn" id="bArchive" style="display:none;border:0;font:inherit;font-size:13px;font-weight:700" onclick="loadArchive()">📚 보관된 기록</button>
+      <label class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700;cursor:pointer">📂 백업 불러오기<input type="file" accept=".json,application/json" style="display:none" onchange="importJSONFile(this)"></label>
+    </div>
+  </div>
+</section>
+<section class="page" id="p-check">
+  <h2 class="sec">✅ 체크리스트</h2><div class="card" id="checkList"></div>
+  <h2 class="sec">🆘 비상 연락</h2><div class="card" id="sosList"></div>
+  <div class="footer" id="foot"></div>
+</section>
+</main>
+</div>
+<nav class="dock" id="dock">
+  <button class="on" data-p="home"><span class="ic">🏠</span>홈</button>
+  <button data-p="move"><span class="ic">🚇</span>이동</button>
+  <button data-p="food"><span class="ic">🍽️</span>맛집</button>
+  <button data-p="shop"><span class="ic">🛍️</span>쇼핑</button>
+  <button data-p="budget"><span class="ic">💴</span>예산</button>
+  <button data-p="check"><span class="ic">✅</span>체크</button>
+</nav>
+<div class="ov" id="ov"><button class="close" onclick="closeCard()">✕ 닫기</button><div class="body" id="ovBody"></div><div class="switch" id="ovSwitch"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =====================================================================
+ *  ✈️ 여행 설정 (CONFIG) — 새 여행은 여기만 고치면 됩니다
+ *  - id: 폴더 이름과 같게 (영문·숫자·하이픈). 지출 기록 저장 이름으로도 쓰여요
+ *  - 날짜는 YYYY-MM-DD, 지도는 구글맵 검색어(q)나 링크(map)
+ *  - 아래 내용은 '예시'예요. 그대로 지우고 새 여행 내용으로 채우세요
+ * ===================================================================== */
+const CONFIG = {
+  id: "shanghai-2026",
+  title: "상하이 여행 🏙️",
+  place: "중국 상하이",
+  start: "2026-12-05",
+  end: "2026-12-08",
+  people: 2,
+  lat: 31.23, lon: 121.47,
+  amap: true, amapCity: "上海",
+  currency: "CNY", symbol: "¥", defaultRate: 20400,
+  hotel: {
+    name: "숙소 (정해지면 입력)",
+    local: "酒店名称",
+    address: "上海市 ○○区 ○○路 ○○号",
+    map: "上海 人民广场",
+    checkin: "15:00", checkout: "12:00",
+    note: "숙소 이름·주소 알려주시면 택시 카드에 반영"
+  },
+  flights: [
+    { team: "2명", go: "인천 → 푸둥(PVG) 시간 입력", back: "푸둥(PVG) → 인천 시간 입력" }
+  ],
+  cards: [
+    { label: "🏨 숙소로", big: "酒店名称", addr: "上海市 ○○区<br>○○路 ○○号", ask: "请送我到这里，<br>谢谢。", ko: "여기까지 가 주세요, 감사합니다" },
+    { label: "✈️ 푸둥공항", big: "浦东国际机场", addr: "", ask: "请送我去机场，<br>谢谢。", ko: "푸둥공항까지 가 주세요" },
+    { label: "💳 결제", big: "可以用<br>支付宝吗？", addr: "", ask: "", ko: "알리페이 되나요?" },
+    { label: "🌶️ 안 맵게", big: "不要辣，<br>不要香菜。", addr: "", ask: "", ko: "맵지 않게, 고수 빼 주세요" },
+    { label: "🚻 화장실", big: "洗手间<br>在哪里？", addr: "", ask: "", ko: "화장실이 어디예요?" }
+  ],
+  days: [
+    { date: "2026-12-05", label: "도착 · 와이탄 야경", items: [
+      { time: "도착", title: "✈️ 푸둥공항(PVG) 도착", body: "입국심사 → 데이터 연결 확인 → 알리페이 결제·교통 QR 작동 확인", hl: true },
+      { time: "+40분", title: "🚄 자기부상열차 → 지하철 2호선", body: "PVG → 룽양루 8분 · 50위안 (당일 탑승권 보여주면 40위안). 룽양루에서 2호선 환승 → 시내 30~40분<br>※ PVG 출발 막차 21:42 이후엔 2호선 직통 또는 디디", q: "浦东国际机场 磁浮站" },
+      { time: "오후", title: "🏨 체크인 · 짐 풀기", body: "숙소 정보 들어오면 업데이트" },
+      { time: "17:00", title: "🚶 난징동루 보행가", body: "인민광장 쪽에서 와이탄 방향으로 걸어가며 구경", q: "南京东路步行街" },
+      { time: "18:00", title: "🌃 와이탄 야경", body: "해 지면 점등 — 건물 불이 한꺼번에 켜지는 순간이 명물. 강 건너 루자쭈이 스카이라인 감상<br>💡 동진선 페리(2위안)로 강을 건너며 보는 야경도 추천", q: "外滩观景平台", hl: true },
+      { time: "19:30", title: "🍽️ 저녁", body: "맛집 탭 참고 · 탕바오 노포들은 저녁 일찍(19:30~20:30) 닫으니 늦으면 동태상(24시간)이나 쇼핑몰 식당가" }
+    ]},
+    { date: "2026-12-06", label: "예원 · 신천지 · 상하이타워", items: [
+      { time: "09:00", title: "🏯 예원 (豫園)", body: "09:00 개원, 입장 약 30위안 · <b>월요일 휴원이라 오늘(일) 방문</b><br>일찍 가야 덜 붐벼요. 구곡교·성황묘·예원상성 같이", q: "豫园", hl: true },
+      { time: "10:30", title: "🥟 남상만두점 샤오롱바오", body: "예원 안 노포 · 인당 약 60위안. 줄 길면 맛집 탭의 다른 곳으로", q: "南翔馒头店 豫园" },
+      { time: "12:00", title: "🇰🇷 대한민국 임시정부 청사", body: "신천지 근처 · 소요 40분 내외 (휴관일·예약 여부 출발 전 확인)", q: "大韩民国临时政府旧址" },
+      { time: "13:00", title: "☕ 신천지 (新天地)", body: "석고문 골목 개조 거리 · 점심·카페", q: "上海新天地" },
+      { time: "15:00", title: "🧭 티엔즈팡 (田子坊)", body: "좁은 골목 공방·기념품 구경", q: "田子坊" },
+      { time: "16:30", title: "🏙️ 상하이타워 118층 전망대", body: "08:30–22:00 · 성인 약 180위안(온라인 할인가 더 저렴) · 지하철 2호선 루자쭈이역<br>💡 12월 일몰 17시 전후 → 16:30 입장하면 낮·노을·야경 다 봄", q: "上海中心大厦 上海之巅观光厅", hl: true },
+      { time: "19:00", title: "🍽️ 저녁 (루자쭈이 IFC몰 등)", body: "맛집 탭 참고" }
+    ]},
+    { date: "2026-12-07", label: "프랑스 조계지 · 쇼핑", items: [
+      { time: "09:30", title: "🥢 아침 생지엔", body: "대호춘 / 소양생지엔 / 동태상 (맛집 탭)" },
+      { time: "10:30", title: "🌳 우캉루 · 우캉맨션", body: "플라타너스 거리 산책, 사진 스폿", q: "武康大楼", hl: true },
+      { time: "12:00", title: "🥐 안푸루 브런치·카페", body: "작은 편집숍·카페 밀집", q: "安福路" },
+      { time: "14:30", title: "🛕 징안사 · 난징시루 쇼핑", body: "징안사 구경 후 난징시루 쇼핑몰 (嘉里中心 · 恒隆广场 등)", q: "静安寺" },
+      { time: "18:30", title: "🍖 저녁: 본방차이 (상하이 가정식)", body: "老吉士 등 — <b>2일 전 예약 권장</b>. 홍샤오러우·유바오샤", q: "老吉士酒家 天平路", hl: true },
+      { time: "대안", title: "🛶 주가각 수향마을 (반나절)", body: "옛 물의 마을 · 지하철 17호선 주가각역. 조계지 대신 오전에 다녀오는 것도 가능", q: "朱家角古镇" }
+    ]},
+    { date: "2026-12-08", label: "귀국", items: [
+      { time: "아침", title: "🥟 마지막 아침 · 기념품", body: "숙소 근처에서 가볍게 → 체크아웃 (짐 맡기기 가능)" },
+      { time: "출발 3h 전", title: "🚄 공항 이동", body: "2호선 → 룽양루 → 자기부상 (룽양루 출발 06:45–21:40) 또는 디디.<br>국제선은 출발 2~3시간 전 도착", q: "龙阳路站 磁浮", hl: true }
+    ]}
+  ],
+  move: [
+    { title: "✈️ 공항 → 시내", body: "<ol><li><b>자기부상열차(磁浮)</b>: PVG → 룽양루 8분 · 50위안 (당일 탑승권 제시 40위안) · PVG 출발 07:02–21:42 · 개찰구에서 해외 Visa/Master 카드 태그 가능</li><li>룽양루에서 <b>지하철 2호선</b> 환승 → 난징동루·인민광장 30~40분</li><li>짐 많거나 밤 늦으면 <b>디디(알리페이 미니앱)</b></li></ol>" },
+    { title: "🚇 지하철", body: "<ul><li>알리페이 → '交通出行/乘车码' → 상하이 지하철 QR로 개찰</li><li>기본요금 3위안부터 (2026년 요금 조정 논의 중이라 1위안 정도 오를 수 있음)</li><li>많이 타면 1일권 18위안 · 3일권 45위안</li></ul>" },
+    { title: "🚕 디디 택시", body: "<ul><li>알리페이 안 <b>DiDi 미니프로그램</b>이 별도 앱보다 안정적</li><li>목적지는 중국어 이름으로 검색 (택시 카드 탭 참고)</li></ul>" },
+    { title: "⛴️ 황푸강 페리", body: "동진선 등 시민 페리 약 2위안 · 10분 · 와이탄 ↔ 루자쭈이 이동하며 야경 감상" },
+    { title: "🗺️ 지도 앱", body: "중국에선 구글 지도가 부정확해요 → <b>가오더(高德)</b> 또는 바이두 지도 추천. 각 일정의 🧭 버튼이 가오더로 열려요" }
+  ],
+  food: [
+    { emoji: "🥟", name: "자자탕바오 (황하루점)", local: "佳家汤包 黄河路店", q: "佳家汤包 黄河路", desc: "인민광장 근처 탕바오 노포. 07:30–20:30", est: "1인 약 40~60위안",
+      menu: [["게살 탕바오", "蟹粉汤包", "시가"], ["돼지고기 탕바오", "纯鲜肉汤包", "-"]], tags: ["아침·점심", "인민광장"] },
+    { emoji: "🦀", name: "라이라이 샤오롱", local: "莱莱小笼", q: "莱莱小笼 天津路", desc: "천진로 작은 가게, 현장에서 바로 찜. 08:00–14:00 · 15:00–19:30", est: "게살 샤오롱 8개 약 40위안",
+      menu: [["게살 샤오롱바오", "蟹粉小笼", "약 40/8개"], ["작은 완탕", "鲜肉小馄饨", "-"]], tags: ["난징동루", "9시쯤 가면 덜 붐빔"] },
+    { emoji: "🍳", name: "대호춘 (사천중로점)", local: "大壶春 四川中路店", q: "大壶春 四川中路", desc: "1932년 창업, 국물 없는 청수파 생지엔 — 바닥이 바삭. 07:00–19:30", est: "1인 약 20위안",
+      menu: [["생지엔", "生煎", "약 16~23"]], tags: ["와이탄 근처", "미쉐린 빕구르망"] },
+    { emoji: "🔥", name: "소양생지엔", local: "小杨生煎", q: "小杨生煎 黄河路", desc: "국물 가득한 체인 생지엔. 지점 많아서 편함", est: "원조 4개 약 12위안",
+      menu: [["원조 생지엔", "原味生煎", "12/4개"], ["새우 생지엔", "虾仁生煎", "-"]], tags: ["간단히", "체인"] },
+    { emoji: "🌙", name: "동태상 생지엔", local: "东泰祥生煎馆 重庆北路店", q: "东泰祥生煎 重庆北路", desc: "24시간 영업 · 게살 생지엔이 유명", est: "1인분 약 11~25위안",
+      menu: [["게살 생지엔", "蟹粉生煎", "-"], ["생지엔", "生煎", "약 11~12/4개"]], tags: ["야식", "24시간"] },
+    { emoji: "🏮", name: "남상만두점 (예원)", local: "南翔馒头店 豫园店", q: "南翔馒头店 豫园", desc: "예원 안 샤오롱바오 노포. 관광지라 줄이 길어요", est: "1인 약 60위안",
+      menu: [["게살 샤오롱바오", "蟹粉小笼", "-"]], tags: ["예원", "관광 코스"] },
+    { emoji: "🍖", name: "라오지스 (천평로점)", local: "老吉士酒家 天平路店", q: "老吉士酒家 天平路", desc: "상하이 가정식(본방차이) 대표 맛집. <b>2일 전 예약 권장</b>", est: "1인 약 80위안~",
+      menu: [["홍샤오러우 (간장 삼겹 조림)", "红烧肉", "-"], ["유바오샤 (새우 튀김볶음)", "油爆虾", "-"], ["카오푸 (밀기울 조림)", "四喜烤麸", "-"]], tags: ["저녁", "예약"] },
+    { emoji: "🥢", name: "뤄춘거 생지엔", local: "萝春阁", q: "萝春阁 浙江中路", desc: "2026년 1월 다시 문을 연 100년 생지엔 노포. 한정 수량이라 일찍 매진", est: "4개 9위안",
+      menu: [["생지엔", "生煎", "9/4개"]], tags: ["아침 일찍", "난징동루 근처"] }
+  ],
+  shops: [
+    { area: "📍 난징동루 · 와이탄", items: [ { name: "난징동루 보행가", info: "대형 매장·기념품", q: "南京东路步行街" }, { name: "예원상성", info: "전통 기념품·간식", q: "豫园商城" } ] },
+    { area: "📍 신천지 · 조계지", items: [ { name: "신천지 북리/남리", info: "카페·브랜드숍", q: "上海新天地" }, { name: "안푸루", info: "편집숍·카페", q: "安福路" }, { name: "티엔즈팡", info: "공방·소품", q: "田子坊" } ] },
+    { area: "📍 징안 · 루자쭈이", items: [ { name: "난징시루 (嘉里中心·恒隆广场)", info: "명품·백화점", q: "南京西路 恒隆广场" }, { name: "IFC몰", info: "루자쭈이역 연결", q: "上海国金中心商场" } ] }
+  ],
+  checklist: [
+    "여권 (유효기간 6개월 이상) · 무비자 30일 (한국인 2026.12.31까지)",
+    "알리페이 설치 + 한국 카드 등록 + 여권 인증 (출국 전에!)",
+    "알리페이 교통 QR(上海地铁) 미리 활성화",
+    "위챗페이도 예비로 등록",
+    "로밍 또는 해외 eSIM (카톡·구글 쓰려면 중국 현지 유심 X)",
+    "가오더 지도(高德地图) 앱 설치",
+    "결제 팁: 200위안 넘으면 수수료 약 3% → 큰 금액은 나눠 결제",
+    "소액 위안화 현금 약간 (비상용)",
+    "멀티 어댑터",
+    "본방차이 저녁 예약 (2일 전)",
+    "숙소·항공 예약 캡처"
+  ],
+  sos: [["👮 경찰", "110"], ["🚑 구급", "120"], ["🔥 화재", "119"], ["🇰🇷 주상하이 총영사관", "+86-21-6295-5000"], ["📞 영사콜센터 (24시간)", "+82-2-3210-0404"]]
+};
+
+/* ===== 앱 동작 (보통 고칠 필요 없음) ===== */
+window.TRIP_ID=CONFIG.id; window.TRIP_NAME=CONFIG.title.replace(/\s*\S*$/u,"")||CONFIG.title; window.TRIP_CUR=CONFIG.currency;
+const PEOPLE=CONFIG.people;
+const store={get(k,d){try{const v=localStorage.getItem(CONFIG.id+":"+k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(CONFIG.id+":"+k,JSON.stringify(v))}catch(e){}}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const mapUrl=q=>/^https?:/.test(q)?q:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
+const amapUrl=q=>"https://uri.amap.com/search?keyword="+encodeURIComponent(q)+"&city="+encodeURIComponent(CONFIG.amapCity||"")+"&callnative=1";
+const mapBtn=(q,t="🗺️ 지도",c="lbtn map")=>{if(!q)return"";const g=`<a class="${c}" href="${mapUrl(q)}" target="_blank" rel="noopener">${CONFIG.amap?(t==="🗺️"?"G":"🗺️ 구글"):t}</a>`;
+  return CONFIG.amap&&!/^https?:/.test(q)?`<a class="${c}" href="${amapUrl(q)}" target="_blank" rel="noopener">${t==="🗺️"?"🧭":"🧭 가오더"}</a>`+g:g};
+const W=["일","월","화","수","목","금","토"];
+const dShort=d=>{const x=new Date(d+"T00:00");return `${x.getMonth()+1}/${x.getDate()} (${W[x.getDay()]})`};
+const dKey=d=>{const x=new Date(d+"T00:00");return `${x.getMonth()+1}/${x.getDate()}`};
+window.DATE_ORDER=["사전",...CONFIG.days.map(d=>dKey(d.date))];
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("show"),1600)}
+
+/* header */
+document.title=CONFIG.title+" · 가이드";
+$("tTitle").textContent=CONFIG.title;
+const nights=Math.round((new Date(CONFIG.end)-new Date(CONFIG.start))/864e5);
+$("tMeta").textContent=`${CONFIG.place} · ${CONFIG.start.replaceAll("-",".")} – ${CONFIG.end.slice(5).replace("-",".")} · ${nights}박 ${nights+1}일 · ${CONFIG.people}명`;
+(function(){const t=new Date();t.setHours(0,0,0,0);const s=new Date(CONFIG.start+"T00:00"),e=new Date(CONFIG.end+"T00:00");const diff=Math.round((t-s)/864e5);
+  $("dday").textContent=t<s?`D-${-diff}`:t>e?"여행 완료 🎉":`여행 ${diff+1}일차`})();
+
+/* home */
+const H=CONFIG.hotel;
+$("hotelCard").innerHTML=`<h3>${esc(H.name)}</h3><div class="jp" style="font-weight:700">${esc(H.local)}</div><div class="jp muted">${esc(H.address)}</div>
+  <div style="margin-top:8px"><span class="tag">${esc(H.note||"")}</span><span class="tag gold">체크인 ${H.checkin} · 체크아웃 ${H.checkout}</span></div>
+  <div class="linkrow">${mapBtn(H.map,"🗺️ 지도")}<button class="lbtn" style="border:0;font:inherit;font-size:13px;font-weight:700" onclick="copyAddr()">📋 주소 복사</button></div>`;
+if(CONFIG.flights.length){$("flightWrap").innerHTML=`<h2 class="sec">✈️ 항공편</h2><div class="card"><table class="cmp"><thead><tr><th></th><th>가는 편</th><th>오는 편</th></tr></thead>${CONFIG.flights.map(f=>`<tr><th>${esc(f.team)}</th><td>${esc(f.go)}</td><td>${esc(f.back)}</td></tr>`).join("")}</table></div>`}
+$("days").innerHTML=CONFIG.days.map((d,i)=>`<div class="day"><div class="dayhead"><b>DAY ${i+1}</b><span class="muted">${dShort(d.date)} · ${esc(d.label||"")}</span></div>
+  <div class="notice" style="margin:0 0 10px" id="w-${d.date}">🌤️ 날씨 예보는 여행 약 2주 전부터 표시돼요</div>
+  <div class="tl">${d.items.map(it=>`<div class="ti${it.hl?" hl":""}"><div class="card"><div class="time">${esc(it.time||"")}</div><h3>${esc(it.title)}</h3><div class="muted">${it.body||""}</div>${it.q?`<div class="linkrow">${mapBtn(it.q)}</div>`:""}</div></div>`).join("")}
+  <div class="ti"><div class="card slot" data-slot="d${i}"><div class="time">메모</div><textarea class="memo" rows="2" placeholder="메모…"></textarea></div></div></div></div>`).join("");
+(function(){const m=store.get("daySlots",{});document.querySelectorAll("[data-slot]").forEach(c=>{const k=c.dataset.slot,ta=c.querySelector("textarea");ta.value=m[k]||"";ta.addEventListener("change",()=>{const x=store.get("daySlots",{});x[k]=ta.value;store.set("daySlots",x);toast("저장됨")})})})();
+
+/* move / food / shop / check */
+$("moveList").innerHTML=CONFIG.move.map(m=>`<div class="card"><h3>${m.title}</h3><div class="muted">${m.body}</div></div>`).join("");
+$("foodList").innerHTML=CONFIG.food.map(r=>`<div class="card rest"><div class="top"><div><h3>${esc(r.name)}</h3><div class="jp muted">${esc(r.local||"")}</div></div><div class="emoji">${r.emoji||"🍽️"}</div></div>
+  <p class="muted" style="margin:6px 0">${r.desc||""}</p>
+  ${r.menu&&r.menu.length?`<table class="cmp" style="font-size:13px;margin:6px 0"><thead><tr><th style="width:auto">추천 메뉴</th><th>현지어 표기</th><th>예상가</th></tr></thead>${r.menu.map(x=>`<tr><td>${esc(x[0])}</td><td class="jp"><b>${esc(x[1])}</b></td><td style="white-space:nowrap">${esc(x[2])}</td></tr>`).join("")}</table>`:""}
+  ${r.est?`<div class="muted" style="font-size:12.5px">💰 ${esc(r.est)} (예상)</div>`:""}
+  <div>${(r.tags||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div><div class="linkrow">${mapBtn(r.q)}</div></div>`).join("");
+$("shopList").innerHTML=CONFIG.shops.map(a=>`<div class="card"><h3>${a.area}</h3><ul class="menu">${a.items.map(x=>`<li><span><b>${esc(x.name)}</b> · ${esc(x.info||"")}</span>${mapBtn(x.q,"🗺️","lbtn")}</li>`).join("")}</ul></div>`).join("");
+(function(){const st=store.get("checks",{});$("checkList").innerHTML=CONFIG.checklist.map((c,i)=>`<label class="chk ${st[i]?"done":""}"><input type="checkbox" data-i="${i}" ${st[i]?"checked":""}><span>${esc(c)}</span></label>`).join("");
+  $("checkList").querySelectorAll("input").forEach(cb=>cb.addEventListener("change",e=>{const s=store.get("checks",{});s[e.target.dataset.i]=e.target.checked;store.set("checks",s);e.target.parentElement.classList.toggle("done",e.target.checked)}))})();
+$("sosList").innerHTML=`<ul class="menu">${CONFIG.sos.map(([l,t])=>`<li><span>${esc(l)}</span><a href="tel:${t.replace(/[^+\d]/g,"")}"><b>${esc(t)}</b></a></li>`).join("")}</ul>`;
+$("foot").textContent=`${CONFIG.title} · 정보는 현지 상황에 따라 달라질 수 있어요`;
+
+/* card overlay */
+let cur=0;
+function drawCard(){const t=CONFIG.cards[cur];$("ovBody").innerHTML=`<div class="big jp">${t.big}</div>${t.addr?`<div class="addr jp">${t.addr}</div>`:""}${t.ask?`<div class="ask jp">${t.ask}</div>`:""}<div class="ko">${esc(t.ko)}</div>`;
+  $("ovSwitch").innerHTML=CONFIG.cards.map((c,i)=>`<button class="${i===cur?"on":""}" onclick="cur=${i};drawCard()">${esc(c.label)}</button>`).join("")}
+function openCard(){cur=0;drawCard();$("ov").classList.add("show")}
+function closeCard(){$("ov").classList.remove("show")}
+async function copyAddr(){const t=H.local+" "+H.address;try{await navigator.clipboard.writeText(t);toast("📋 주소 복사됨")}catch(e){prompt("복사하세요",t)}}
+
+/* nav */
+function go(p){document.querySelectorAll(".page").forEach(s=>s.classList.toggle("active",s.id==="p-"+p));document.querySelectorAll("#dock button").forEach(b=>b.classList.toggle("on",b.dataset.p===p));window.scrollTo({top:0});try{history.replaceState(null,"","#"+p)}catch(e){}}
+document.querySelectorAll("#dock button").forEach(b=>b.addEventListener("click",()=>go(b.dataset.p)));
+function netState(){const n=$("net");n.textContent=navigator.onLine?"온라인":"오프라인";n.classList.toggle("off",!navigator.onLine)}
+addEventListener("online",netState);addEventListener("offline",netState);netState();
+
+/* weather */
+const WMO={0:["☀️","맑음"],1:["🌤️","대체로 맑음"],2:["⛅","구름 조금"],3:["☁️","흐림"],45:["🌫️","안개"],48:["🌫️","안개"],51:["🌦️","이슬비"],53:["🌦️","이슬비"],55:["🌦️","이슬비"],61:["🌧️","비"],63:["🌧️","비"],65:["🌧️","강한 비"],71:["🌨️","눈"],73:["🌨️","눈"],75:["❄️","강한 눈"],80:["🌦️","소나기"],81:["🌦️","소나기"],82:["⛈️","강한 소나기"],95:["⛈️","뇌우"]};
+function renderWeather(d){if(!d||!d.daily)return;d.daily.time.forEach((t,i)=>{const el=$("w-"+t);if(!el)return;const w=WMO[d.daily.weather_code[i]]||["🌡️","날씨"];
+  const lo=Math.round(d.daily.temperature_2m_min[i]),hi=Math.round(d.daily.temperature_2m_max[i]),pr=d.daily.precipitation_probability_max[i];
+  let tip=lo<=5?"많이 추워요 · 두꺼운 외투":lo<=10?"쌀쌀해요 · 겉옷 필수":lo<=15?"얇은 겉옷":"가볍게 입어도 OK";if(pr>=50)tip+=" · ☂️ 우산";else if(pr>=30)tip+=" · 접이식 우산";
+  el.innerHTML=`${w[0]} <b>${w[1]} · ${lo}~${hi}℃</b> · 비 올 확률 ${pr??"-"}% · ${tip}<br><span style="font-size:11.5px;color:var(--sub)">🔄 실시간 예보 · ${d._at||""}</span>`})}
+async function loadWeather(){const c=store.get("weather",null);if(c)renderWeather(c);if(!navigator.onLine)return;
+  try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${CONFIG.lat}&longitude=${CONFIG.lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&start_date=${CONFIG.start}&end_date=${CONFIG.end}`,{cache:"no-store"});
+    if(!r.ok)return;const d=await r.json();const n=new Date();d._at=`${n.getMonth()+1}/${n.getDate()} ${String(n.getHours()).padStart(2,"0")}:${String(n.getMinutes()).padStart(2,"0")} 업데이트`;store.set("weather",d);renderWeather(d)}catch(e){}}
+loadWeather();setInterval(loadWeather,30*60*1000);
+
+/* budget */
+const fmtJ=n=>CONFIG.symbol+(Math.round(n*100)/100).toLocaleString("ko-KR");
+const fmtK=n=>"₩"+Math.round(n).toLocaleString("ko-KR");
+function krw(j){const r=parseFloat($("bRate").value);return j*((isFinite(r)&&r>0?r:CONFIG.defaultRate)/100)}
+$("bRateLabel").textContent=`환율 100${CONFIG.currency} =`;$("bPerLabel").textContent=`1인당 (${PEOPLE}명)`;
+$("bDate").innerHTML=CONFIG.days.map(d=>`<option value="${dKey(d.date)}">${dShort(d.date)}</option>`).join("")+`<option value="사전">출발 전</option>`;
+let editId=null;
+function addExp(){const amt=parseFloat($("bAmt").value);if(!amt||amt<=0){toast("금액을 입력하세요");return}
+  const list=store.get("exp",[]);
+  if(editId){const x=list.find(v=>v.id===editId);if(x){x.d=bDate.value;x.c=bCat.value;x.m=bMemo.value.trim();x.a=amt;x.p=bPay.value}store.set("exp",list);cancelEdit();toast("수정됨");return}
+  list.push({id:Date.now(),d:bDate.value,c:bCat.value,m:bMemo.value.trim(),a:amt,p:bPay.value});store.set("exp",list);bAmt.value="";bMemo.value="";renderBudget();toast("추가됨 "+fmtJ(amt))}
+function editExp(id){const x=store.get("exp",[]).find(v=>v.id===id);if(!x)return;editId=id;bDate.value=x.d;bCat.value=x.c;bMemo.value=x.m||"";bAmt.value=x.a;bPay.value=x.p;
+  bSave.textContent="수정 저장";bCancel.style.display="flex";bFormTitle.textContent="✏️ 지출 수정";bFormCard.scrollIntoView({behavior:"smooth",block:"center"});renderBudget()}
+function cancelEdit(){editId=null;bAmt.value="";bMemo.value="";bSave.textContent="추가하기";bCancel.style.display="none";bFormTitle.textContent="➕ 지출 추가";renderBudget()}
+function delExp(id){if(!confirm("이 항목을 삭제할까요?"))return;if(editId===id)cancelEdit();store.set("exp",store.get("exp",[]).filter(x=>x.id!==id));renderBudget()}
+function group(list,key){const g={};list.forEach(x=>g[x[key]]=(g[x[key]]||0)+x.a);return g}
+function bars(g){const e=Object.entries(g).sort((a,b)=>b[1]-a[1]);const mx=Math.max(...e.map(x=>x[1]),1);
+  return e.map(([k,v])=>`<div class="bitem" style="display:block"><div style="display:flex;justify-content:space-between"><span>${esc(k)}</span><span><b>${fmtJ(v)}</b> <span class="muted">${fmtK(krw(v))}</span></span></div><div class="bar" style="width:${Math.max(4,v/mx*100)}%"></div></div>`).join("")}
+function renderBudget(){const list=store.get("exp",[]);const tot=list.reduce((a,x)=>a+x.a,0);const order=window.DATE_ORDER;
+  bTotJ.textContent=fmtJ(tot);bTotK.textContent=fmtK(krw(tot));bPerJ.textContent=fmtJ(tot/PEOPLE);bPerK.textContent=fmtK(krw(tot/PEOPLE));
+  bCash.textContent=fmtJ(list.filter(x=>x.p.includes("현금")).reduce((a,x)=>a+x.a,0));bCard.textContent=fmtJ(list.filter(x=>x.p.includes("카드")).reduce((a,x)=>a+x.a,0));
+  if(!list.length){bByCat.innerHTML=bByDate.innerHTML=bList.innerHTML="아직 기록이 없어요";return}
+  bByCat.innerHTML=bars(group(list,"c"));const gd=group(list,"d");
+  bByDate.innerHTML=order.filter(d=>gd[d]).map(d=>`<div class="bitem"><span>${d==="사전"?"출발 전":d}</span><span><b>${fmtJ(gd[d])}</b> <span class="muted">${fmtK(krw(gd[d]))}</span></span></div>`).join("");
+  bList.innerHTML=[...list].sort((a,b)=>order.indexOf(a.d)-order.indexOf(b.d)||a.id-b.id).map(x=>`<div class="bitem" style="${x.id===editId?"background:#fff6df;border-radius:8px;padding-left:6px":""}"><span><span class="tag">${x.d}</span> ${x.c.split(" ")[0]} ${esc(x.m||x.c.split(" ")[1])} <span class="muted" style="font-size:12px">${x.p.split(" ")[0]}</span></span><span style="white-space:nowrap"><b>${fmtJ(x.a)}</b> <button class="del" style="color:var(--navy2)" onclick="editExp(${x.id})">✏️</button><button class="del" onclick="delExp(${x.id})">✕</button></span></div>`).join("")}
+async function loadRate(manual){const sv=store.get("rate",null);if(sv&&!manual){bRate.value=sv.v;bRateInfo.textContent=sv.t?`(${sv.t} 기준)`:"(직접 입력)"}
+  if(!navigator.onLine){if(manual)toast("오프라인이에요");return}
+  try{const r=await fetch(`https://open.er-api.com/v6/latest/${CONFIG.currency}`,{cache:"no-store"});const d=await r.json();const v=Math.round(d.rates.KRW*100*100)/100;const n=new Date();
+    const t=`${n.getMonth()+1}/${n.getDate()} ${String(n.getHours()).padStart(2,"0")}:${String(n.getMinutes()).padStart(2,"0")}`;store.set("rate",{v,t});bRate.value=v;bRateInfo.textContent=`(실시간 · ${t})`;renderBudget();if(manual)toast("환율 업데이트")}
+  catch(e){if(!bRate.value){bRate.value=CONFIG.defaultRate;bRateInfo.textContent="(기본값 · 직접 수정 가능)"}if(manual)toast("환율을 못 불러왔어요")}}
+function copyBudget(){const list=store.get("exp",[]);const tot=list.reduce((a,x)=>a+x.a,0);const gc=group(list,"c");
+  const txt=`[${CONFIG.title} 지출]\n총 ${fmtJ(tot)} (${fmtK(krw(tot))})\n1인당 ${fmtJ(tot/PEOPLE)} (${fmtK(krw(tot/PEOPLE))})\n`+Object.entries(gc).map(([k,v])=>`${k} ${fmtJ(v)}`).join("\n");
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("요약 복사됨")).catch(()=>prompt("복사하세요",txt))}
+bRate.addEventListener("change",()=>{store.set("rate",{v:parseFloat(bRate.value),t:""});bRateInfo.textContent="(직접 입력)";renderBudget()});
+
+/* ===== budget export / import ===== */
+const TRIP_ID = (window.TRIP_ID || "fukuoka-2026");
+const TRIP_NAME = (window.TRIP_NAME || "후쿠오카 여행");
+const CUR = (window.TRIP_CUR || "JPY");
+function bRows(){
+  const order=(window.DATE_ORDER||["사전","11/7","11/8","11/9"]);
+  return [...store.get("exp",[])].sort((a,b)=>order.indexOf(a.d)-order.indexOf(b.d)||a.id-b.id);
+}
+function csvCell(v){v=String(v??"");return /[",\n]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+function buildCSV(){
+  const rows=bRows();const tot=rows.reduce((a,x)=>a+x.a,0);
+  const L=[["날짜","카테고리","메모","결제",`금액(${CUR})`,"금액(KRW)"]];
+  rows.forEach(x=>L.push([x.d==="사전"?"출발 전":x.d,x.c.replace(/^\S+\s/,""),x.m||"",x.p.replace(/^\S+\s/,""),x.a,Math.round(krw(x.a))]));
+  L.push([]);L.push(["합계","","","",tot,Math.round(krw(tot))]);
+  L.push([`1인당(${PEOPLE}명)`,"","","",Math.round(tot/PEOPLE),Math.round(krw(tot/PEOPLE))]);
+  const gc=group(rows,"c");L.push([]);L.push(["카테고리별 합계"]);
+  Object.entries(gc).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>L.push([k.replace(/^\S+\s/,""),"","","",v,Math.round(krw(v))]));
+  L.push([]);L.push([`환율: 100${CUR==="JPY"?"엔":CUR==="CNY"?"위안":CUR} = ${bRate.value}원`]);
+  return "﻿"+L.map(r=>r.map(csvCell).join(",")).join("\r\n");
+}
+function dl(name,text,type){
+  const blob=new Blob([text],{type});const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);
+}
+function downloadCSV(){if(!bRows().length){toast("기록이 없어요");return}dl(`${TRIP_ID}-지출내역.csv`,buildCSV(),"text/csv;charset=utf-8");toast("CSV 저장 (엑셀로 열려요)")}
+async function shareCSV(){
+  if(!bRows().length){toast("기록이 없어요");return}
+  const f=new File([buildCSV()],`${TRIP_ID}-지출내역.csv`,{type:"text/csv"});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:`${TRIP_NAME} 지출 내역`});return}catch(e){if(e.name==="AbortError")return}}
+  downloadCSV();
+}
+function mailBudget(){
+  const rows=bRows();if(!rows.length){toast("기록이 없어요");return}
+  const tot=rows.reduce((a,x)=>a+x.a,0);
+  const lines=rows.map(x=>`${x.d==="사전"?"출발 전":x.d} | ${x.c.replace(/^\S+\s/,"")} | ${x.m||"-"} | ${x.p.replace(/^\S+\s/,"")} | ${fmtJ(x.a)} (${fmtK(krw(x.a))})`);
+  const gc=group(rows,"c");
+  const body=`[${TRIP_NAME} 지출 내역]\n총 ${fmtJ(tot)} (${fmtK(krw(tot))})\n1인당 ${fmtJ(tot/PEOPLE)} (${fmtK(krw(tot/PEOPLE))})\n\n■ 카테고리별\n`+Object.entries(gc).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`${k} ${fmtJ(v)} (${fmtK(krw(v))})`).join("\n")+`\n\n■ 상세 내역 (날짜 | 카테고리 | 메모 | 결제 | 금액)\n`+lines.join("\n")+`\n\n환율 100${CUR==="JPY"?"엔":CUR==="CNY"?"위안":CUR} = ${bRate.value}원`;
+  location.href=`mailto:?subject=${encodeURIComponent(TRIP_NAME+" 지출 내역")}&body=${encodeURIComponent(body)}`;
+}
+function backupObj(){return {v:1,trip:TRIP_ID,name:TRIP_NAME,cur:CUR,people:PEOPLE,rate:parseFloat(bRate.value)||null,exp:store.get("exp",[]),at:new Date().toISOString()}}
+function exportJSON(){dl(`${TRIP_ID}-budget-backup.json`,JSON.stringify(backupObj(),null,1),"application/json");toast("백업 파일 저장")}
+function applyImport(obj){
+  if(!obj||!Array.isArray(obj.exp)){toast("올바른 백업이 아니에요");return}
+  if(obj.trip&&obj.trip!==TRIP_ID&&!confirm(`다른 여행(${obj.name||obj.trip})의 기록이에요. 그래도 가져올까요?`))return;
+  const cur=store.get("exp",[]);
+  let mode="merge";
+  if(cur.length) mode=confirm(`가져올 기록 ${obj.exp.length}건\n\n[확인] 지금 기록과 합치기 (같은 항목은 최신으로)\n[취소] 지금 기록을 지우고 덮어쓰기`)?"merge":"replace";
+  let out;
+  if(mode==="replace"){if(!confirm("이 기기의 기록을 지우고 덮어쓸까요?"))return;out=obj.exp}
+  else{const m=new Map(cur.map(x=>[x.id,x]));obj.exp.forEach(x=>m.set(x.id,x));out=[...m.values()]}
+  store.set("exp",out);if(obj.rate){bRate.value=obj.rate;store.set("rate",{v:obj.rate,t:"가져온 값"})}
+  renderBudget();toast(`${obj.exp.length}건 가져옴`);
+}
+function importJSONFile(inp){
+  const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();
+  r.onload=()=>{try{applyImport(JSON.parse(r.result))}catch(e){toast("파일을 읽지 못했어요")}inp.value=""};r.readAsText(f);
+}
+const b64u={enc:u8=>btoa(String.fromCharCode(...u8)).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""),
+  dec:s=>{s=s.replace(/-/g,"+").replace(/_/g,"/");while(s.length%4)s+="=";return Uint8Array.from(atob(s),c=>c.charCodeAt(0))}};
+async function packData(obj){
+  const txt=new TextEncoder().encode(JSON.stringify(obj));
+  if(window.CompressionStream){const cs=new Blob([txt]).stream().pipeThrough(new CompressionStream("gzip"));return "z"+b64u.enc(new Uint8Array(await new Response(cs).arrayBuffer()))}
+  return "p"+b64u.enc(txt);
+}
+async function unpackData(s){
+  const kind=s[0],u8=b64u.dec(s.slice(1));
+  if(kind==="z"){const ds=new Blob([u8]).stream().pipeThrough(new DecompressionStream("gzip"));return JSON.parse(await new Response(ds).text())}
+  return JSON.parse(new TextDecoder().decode(u8));
+}
+async function makeMoveLink(){
+  if(!bRows().length){toast("기록이 없어요");return}
+  const url=location.origin+location.pathname+"#import="+await packData(backupObj());
+  if(navigator.share){try{await navigator.share({title:`${TRIP_NAME} 지출 기록 옮기기`,text:"이 링크를 PC에서 열면 지출 기록이 들어가요",url});return}catch(e){if(e.name==="AbortError")return}}
+  try{await navigator.clipboard.writeText(url);toast("링크 복사됨 · 카톡 나에게 보내기 → PC에서 열기")}catch(e){prompt("이 링크를 복사해 PC에서 여세요",url)}
+}
+async function checkImportHash(){
+  const h=location.hash;if(!h.startsWith("#import="))return;
+  try{const obj=await unpackData(h.slice(8));history.replaceState(null,"",location.pathname+"#budget");go("budget");
+    if(confirm(`다른 기기의 지출 기록 ${obj.exp.length}건을 이 기기로 가져올까요?`))applyImport(obj);}
+  catch(e){toast("링크가 잘못됐어요")}
+}
+
+
+/* ===== init ===== */
+async function loadArchive(){try{const r=await fetch("expenses.json",{cache:"no-store"});applyImport(await r.json())}catch(e){toast("보관된 기록이 없어요")}}
+fetch("expenses.json",{cache:"no-store"}).then(r=>{if(r.ok)$("bArchive").style.display="inline-flex"}).catch(()=>{});
+renderBudget();loadRate();
+const h=location.hash.slice(1);if(["home","move","food","shop","budget","check"].includes(h))go(h);
+checkImportHash();
+if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+
+</script>
+</body></html>

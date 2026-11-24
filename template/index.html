@@ -264,6 +264,7 @@ const CONFIG = {
   end: "2027-03-03",
   people: 4,
   lat: 34.69, lon: 135.50,              // 날씨용 위치 (도시 좌표)
+  amap: false, amapCity: "",            // 중국 여행이면 true + 도시명 → 가오더(高德) 지도 버튼 추가
   currency: "JPY", symbol: "¥", defaultRate: 950,   // 100 현지통화 = ?원 (실시간 실패 시 기본값)
   hotel: {
     name: "예시 호텔 (숙소 이름)",
@@ -315,7 +316,9 @@ const store={get(k,d){try{const v=localStorage.getItem(CONFIG.id+":"+k);return v
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const mapUrl=q=>/^https?:/.test(q)?q:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(q);
-const mapBtn=(q,t="🗺️ 지도",c="lbtn map")=>q?`<a class="${c}" href="${mapUrl(q)}" target="_blank" rel="noopener">${t}</a>`:"";
+const amapUrl=q=>"https://uri.amap.com/search?keyword="+encodeURIComponent(q)+"&city="+encodeURIComponent(CONFIG.amapCity||"")+"&callnative=1";
+const mapBtn=(q,t="🗺️ 지도",c="lbtn map")=>{if(!q)return"";const g=`<a class="${c}" href="${mapUrl(q)}" target="_blank" rel="noopener">${CONFIG.amap?(t==="🗺️"?"G":"🗺️ 구글"):t}</a>`;
+  return CONFIG.amap&&!/^https?:/.test(q)?`<a class="${c}" href="${amapUrl(q)}" target="_blank" rel="noopener">${t==="🗺️"?"🧭":"🧭 가오더"}</a>`+g:g};
 const W=["일","월","화","수","목","금","토"];
 const dShort=d=>{const x=new Date(d+"T00:00");return `${x.getMonth()+1}/${x.getDate()} (${W[x.getDay()]})`};
 const dKey=d=>{const x=new Date(d+"T00:00");return `${x.getMonth()+1}/${x.getDate()}`};
@@ -432,7 +435,7 @@ function buildCSV(){
   L.push([`1인당(${PEOPLE}명)`,"","","",Math.round(tot/PEOPLE),Math.round(krw(tot/PEOPLE))]);
   const gc=group(rows,"c");L.push([]);L.push(["카테고리별 합계"]);
   Object.entries(gc).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>L.push([k.replace(/^\S+\s/,""),"","","",v,Math.round(krw(v))]));
-  L.push([]);L.push([`환율: 100${CUR==="JPY"?"엔":CUR} = ${bRate.value}원`]);
+  L.push([]);L.push([`환율: 100${CUR==="JPY"?"엔":CUR==="CNY"?"위안":CUR} = ${bRate.value}원`]);
   return "﻿"+L.map(r=>r.map(csvCell).join(",")).join("\r\n");
 }
 function dl(name,text,type){
@@ -452,7 +455,7 @@ function mailBudget(){
   const tot=rows.reduce((a,x)=>a+x.a,0);
   const lines=rows.map(x=>`${x.d==="사전"?"출발 전":x.d} | ${x.c.replace(/^\S+\s/,"")} | ${x.m||"-"} | ${x.p.replace(/^\S+\s/,"")} | ${fmtJ(x.a)} (${fmtK(krw(x.a))})`);
   const gc=group(rows,"c");
-  const body=`[${TRIP_NAME} 지출 내역]\n총 ${fmtJ(tot)} (${fmtK(krw(tot))})\n1인당 ${fmtJ(tot/PEOPLE)} (${fmtK(krw(tot/PEOPLE))})\n\n■ 카테고리별\n`+Object.entries(gc).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`${k} ${fmtJ(v)} (${fmtK(krw(v))})`).join("\n")+`\n\n■ 상세 내역 (날짜 | 카테고리 | 메모 | 결제 | 금액)\n`+lines.join("\n")+`\n\n환율 100엔 = ${bRate.value}원`;
+  const body=`[${TRIP_NAME} 지출 내역]\n총 ${fmtJ(tot)} (${fmtK(krw(tot))})\n1인당 ${fmtJ(tot/PEOPLE)} (${fmtK(krw(tot/PEOPLE))})\n\n■ 카테고리별\n`+Object.entries(gc).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`${k} ${fmtJ(v)} (${fmtK(krw(v))})`).join("\n")+`\n\n■ 상세 내역 (날짜 | 카테고리 | 메모 | 결제 | 금액)\n`+lines.join("\n")+`\n\n환율 100${CUR==="JPY"?"엔":CUR==="CNY"?"위안":CUR} = ${bRate.value}원`;
   location.href=`mailto:?subject=${encodeURIComponent(TRIP_NAME+" 지출 내역")}&body=${encodeURIComponent(body)}`;
 }
 function backupObj(){return {v:1,trip:TRIP_ID,name:TRIP_NAME,cur:CUR,people:PEOPLE,rate:parseFloat(bRate.value)||null,exp:store.get("exp",[]),at:new Date().toISOString()}}

@@ -1,5 +1,19 @@
 [
   {
+    "id": "shanghai-2026",
+    "path": "shanghai-2026/",
+    "storage": "shanghai-2026",
+    "title": "상하이 여행",
+    "emoji": "🏙️",
+    "place": "중국 상하이",
+    "start": "2026-12-05",
+    "end": "2026-12-08",
+    "people": 2,
+    "currency": "CNY",
+    "color": "#8a1c1c",
+    "memo": "와이탄 야경 · 예원 · 상하이타워 · 우캉루 · 샤오롱바오"
+  },
+  {
     "id": "fukuoka-2026",
     "path": "fukuoka-2026/",
     "storage": "fuk26",

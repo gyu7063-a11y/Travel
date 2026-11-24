@@ -63,7 +63,7 @@ code{background:#f1ede4;padding:1px 6px;border-radius:6px;font-size:12.5px}
   <div class="foot">지출 기록은 기기마다 따로 저장돼요 · 각 여행의 예산 탭에서 '옮기기 링크'로 폰 ↔ PC 이동</div>
 </div>
 <script>
-const fmt=(n,c)=>(c==="KRW"?"₩":c==="JPY"?"¥":"")+Math.round(n).toLocaleString("ko-KR")+(c&&c!=="KRW"&&c!=="JPY"?" "+c:"");
+const fmt=(n,c)=>(c==="KRW"?"₩":c==="JPY"?"¥":"")+Math.round(n).toLocaleString("ko-KR")+(c==="CNY"?"위안":c&&c!=="KRW"&&c!=="JPY"?" "+c:"");
 function readLocal(prefix){try{return JSON.parse(localStorage.getItem(prefix+":exp")||"[]")}catch(e){return[]}}
 function readRate(prefix){try{const r=JSON.parse(localStorage.getItem(prefix+":rate")||"null");return r&&r.v?r.v/100:null}catch(e){return null}}
 function status(t){const today=new Date();today.setHours(0,0,0,0);const s=new Date(t.start),e=new Date(t.end);

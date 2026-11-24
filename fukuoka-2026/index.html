@@ -978,7 +978,7 @@ function buildCSV(){
   L.push([`1인당(${PEOPLE}명)`,"","","",Math.round(tot/PEOPLE),Math.round(krw(tot/PEOPLE))]);
   const gc=group(rows,"c");L.push([]);L.push(["카테고리별 합계"]);
   Object.entries(gc).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>L.push([k.replace(/^\S+\s/,""),"","","",v,Math.round(krw(v))]));
-  L.push([]);L.push([`환율: 100${CUR==="JPY"?"엔":CUR} = ${bRate.value}원`]);
+  L.push([]);L.push([`환율: 100${CUR==="JPY"?"엔":CUR==="CNY"?"위안":CUR} = ${bRate.value}원`]);
   return "﻿"+L.map(r=>r.map(csvCell).join(",")).join("\r\n");
 }
 function dl(name,text,type){
@@ -998,7 +998,7 @@ function mailBudget(){
   const tot=rows.reduce((a,x)=>a+x.a,0);
   const lines=rows.map(x=>`${x.d==="사전"?"출발 전":x.d} | ${x.c.replace(/^\S+\s/,"")} | ${x.m||"-"} | ${x.p.replace(/^\S+\s/,"")} | ${fmtJ(x.a)} (${fmtK(krw(x.a))})`);
   const gc=group(rows,"c");
-  const body=`[${TRIP_NAME} 지출 내역]\n총 ${fmtJ(tot)} (${fmtK(krw(tot))})\n1인당 ${fmtJ(tot/PEOPLE)} (${fmtK(krw(tot/PEOPLE))})\n\n■ 카테고리별\n`+Object.entries(gc).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`${k} ${fmtJ(v)} (${fmtK(krw(v))})`).join("\n")+`\n\n■ 상세 내역 (날짜 | 카테고리 | 메모 | 결제 | 금액)\n`+lines.join("\n")+`\n\n환율 100엔 = ${bRate.value}원`;
+  const body=`[${TRIP_NAME} 지출 내역]\n총 ${fmtJ(tot)} (${fmtK(krw(tot))})\n1인당 ${fmtJ(tot/PEOPLE)} (${fmtK(krw(tot/PEOPLE))})\n\n■ 카테고리별\n`+Object.entries(gc).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`${k} ${fmtJ(v)} (${fmtK(krw(v))})`).join("\n")+`\n\n■ 상세 내역 (날짜 | 카테고리 | 메모 | 결제 | 금액)\n`+lines.join("\n")+`\n\n환율 100${CUR==="JPY"?"엔":CUR==="CNY"?"위안":CUR} = ${bRate.value}원`;
   location.href=`mailto:?subject=${encodeURIComponent(TRIP_NAME+" 지출 내역")}&body=${encodeURIComponent(body)}`;
 }
 function backupObj(){return {v:1,trip:TRIP_ID,name:TRIP_NAME,cur:CUR,people:PEOPLE,rate:parseFloat(bRate.value)||null,exp:store.get("exp",[]),at:new Date().toISOString()}}

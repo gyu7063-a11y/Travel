@@ -2,7 +2,7 @@
  * 허브 페이지(루트)만 캐싱합니다. 각 여행 폴더는 자기 sw.js가 따로 관리해요.
  * 예전(후쿠오카 앱이 루트에 있던 시절) 캐시는 여기서 정리합니다.
  */
-const CACHE = "trips-hub-v1";
+const CACHE = "trips-hub-v2";
 const SHELL = ["./", "./index.html", "./trips.json", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 const ROOT = new URL("./", self.location).pathname;
 
